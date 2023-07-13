@@ -1,13 +1,8 @@
 import "./globals.css";
-import { Poppins } from "next/font/google";
 import { Metadata } from "next";
 
 import ThemeWrapper from "./ThemeWrapper";
-
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["400", "700", "900"],
-});
+import { poppins } from "./fonts";
 
 export const metadata: Metadata = {
   title: "Better To-Do List",

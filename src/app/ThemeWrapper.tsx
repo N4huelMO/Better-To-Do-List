@@ -7,8 +7,6 @@ import styled from "styled-components";
 
 import LightTheme from "../themes/light";
 import DarkTheme from "../themes/dark";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 
 const GlobalStyle = createGlobalStyle`
 html,body { 
@@ -20,9 +18,7 @@ html,body {
 `;
 
 const Container = styled.div`
-  display: flex;
-  flex-flow: column;
-  height: 100%;
+  height: 100vh;
 `;
 
 const ThemeWrapper = ({ children }: { children: React.ReactNode }) => {
@@ -36,11 +32,7 @@ const ThemeWrapper = ({ children }: { children: React.ReactNode }) => {
     <StyledComponentsRegistry>
       <ThemeProvider theme={theme == "light" ? LightTheme : DarkTheme}>
         <GlobalStyle />
-        <Container>
-          <Header toggleTheme={toggleTheme} />
-          {children}
-          <Footer />
-        </Container>
+        <Container>{children}</Container>
       </ThemeProvider>
     </StyledComponentsRegistry>
   );

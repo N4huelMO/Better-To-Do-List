@@ -8,3 +8,28 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
+.bounce {
+  animation: bounce 0.5s ease;
+}
+
+@keyframes bounce {
+  25% {
+    transform: translateY(-15%);
+  }
+  50% {
+    transform: translateY(0%);
+  }
+  70% {
+    transform: translateY(-7%);
+  }
+  90% {
+    transform: translateY(0%);
+  }
+  99% {
+    transform: translateY(-3%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}

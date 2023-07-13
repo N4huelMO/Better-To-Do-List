@@ -1,7 +1,15 @@
-import { Main } from "@/styles/sharedStyles";
+"use client";
+import Sidebar from "@/components/Sidebar/Sidebar";
+import { Container } from "@/styles/sharedStyles";
+import Register from "@/components/Register/Register";
 
-const Register = () => {
-  return <Main>Register</Main>;
+const page = () => {
+  return (
+    <Container>
+      <Sidebar />
+
+      <Register />
+    </Container>
+  );
 };
-
-export default Register;
+export default page;
