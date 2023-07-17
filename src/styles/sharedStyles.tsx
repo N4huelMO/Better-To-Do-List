@@ -81,7 +81,7 @@ const FormLabels = styled.label`
   margin: 0 0 0.2rem 0.5rem;
 `;
 
-const ButtonSubmit = styled.button<ButtonProps>`
+const ButtonForm = styled.button<ButtonProps>`
   width: 100%;
   margin-top: ${(p) => (p.$secondary ? "0.5rem" : "0")};
   padding: ${(p) => (p.$secondary ? "0.55rem 0" : "1rem 0")};
@@ -100,6 +100,12 @@ const ButtonSubmit = styled.button<ButtonProps>`
 
   &:hover {
     background: ${(p) => (p.$secondary ? "#bae6fd" : "#082f49")};
+  }
+
+  &:disabled {
+    background: #e0f2fe;
+    color: #bae6fd;
+    cursor: not-allowed;
   }
 `;
 
@@ -121,6 +127,6 @@ export {
   Form,
   FormFields,
   FormLabels,
-  ButtonSubmit,
+  ButtonForm,
   SignUpSignIn,
 };

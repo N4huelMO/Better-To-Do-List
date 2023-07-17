@@ -8,6 +8,7 @@ const ForgotPasswordDiv = styled.div`
   a {
     margin-top: 0.3rem;
     font-size: 0.9rem;
+    margin-right: 0.3rem;
 
     &:hover {
       text-decoration: underline;

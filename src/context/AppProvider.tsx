@@ -8,12 +8,12 @@ import {
   ReactNode,
 } from "react";
 
-type ContextType = {
+type ContextProps = {
   theme: string;
   setTheme: Dispatch<SetStateAction<string>>;
 };
 
-const AppContext = createContext<ContextType>({
+const AppContext = createContext<ContextProps>({
   theme: "",
   setTheme: () => {},
 });

@@ -26,6 +26,10 @@ const PasswordInput = ({
   const [showPassword, setShowPassword] = useState(false);
   const [clickShowPassword, setClickShowPassword] = useState(false);
 
+  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };
+
   return (
     <>
       <PasswordInputWrapper>
@@ -33,9 +37,7 @@ const PasswordInput = ({
           {...{ type: showPassword ? "text" : "password" }}
           id={$confirmPassword ? "confirmPassword" : "password"}
           required
-          onChange={(e: ChangeEvent<HTMLInputElement>) => {
-            setPassword(e.target.value);
-          }}
+          onChange={handlePasswordChange}
         />
 
         <ToggleButtonWrapper>

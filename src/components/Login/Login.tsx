@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -11,7 +11,7 @@ import PasswordInput from "../PasswordInput/PasswordInput";
 import { ForgotPasswordDiv, Hr } from "./Login.styles";
 
 import {
-  ButtonSubmit,
+  ButtonForm,
   FormContainer,
   FormContent,
   Form,
@@ -21,13 +21,45 @@ import {
   SignUpSignIn,
 } from "@/styles/sharedStyles";
 
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+
+import { auth, provider } from "@/firebase/config";
+
 const Login = () => {
+  const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+
+  const [error, setError] = useState(false);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    console.log("test");
+    console.log(email);
+    console.log(password);
+  };
+
+  const handleChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
+
+  const signInWithGoogle = async () => {
+    await signInWithPopup(auth, provider)
+      .then((result) => {
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+
+        const token = credential?.accessToken;
+
+        const user = result.user;
+
+        console.log(token);
+        console.log(user.displayName);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        const email = error.customData.email;
+        GoogleAuthProvider.credentialFromError(error);
+      });
   };
 
   return (
@@ -38,7 +70,12 @@ const Login = () => {
         <Form onSubmit={handleSubmit} className={poppins.className}>
           <FormFields>
             <FormLabels htmlFor="email">E-mail</FormLabels>
-            <Input required type="email" id="email" />
+            <Input
+              required
+              type="email"
+              id="email"
+              onChange={handleChangeEmail}
+            />
           </FormFields>
 
           <FormFields>
@@ -50,7 +87,9 @@ const Login = () => {
             </ForgotPasswordDiv>
           </FormFields>
 
-          <ButtonSubmit className={poppins.className}>Sign In</ButtonSubmit>
+          <ButtonForm type="submit" className={poppins.className}>
+            Sign In
+          </ButtonForm>
 
           <SignUpSignIn>
             Don't have an account? <Link href={"/register"}>Sign Up</Link>
@@ -59,10 +98,16 @@ const Login = () => {
 
         <Hr />
 
-        <ButtonSubmit className={poppins.className} $secondary>
+        <ButtonForm
+          onClick={() => {
+            signInWithGoogle();
+          }}
+          className={poppins.className}
+          $secondary
+        >
           <Image src={google} height={40} width={40} alt="Google Image" />
           Sign in with Google
-        </ButtonSubmit>
+        </ButtonForm>
       </FormContent>
     </FormContainer>
   );
