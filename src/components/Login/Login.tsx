@@ -21,21 +21,54 @@ import {
   SignUpSignIn,
 } from "@/styles/sharedStyles";
 
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
 
 import { auth, provider } from "@/firebase/config";
+import Alert from "../Alert";
+import Loading from "../Loading";
+import { useRouter } from "next/navigation";
+import userAuth from "@/helpers/userAuth";
 
 const Login = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-
+  const [alert, setAlert] = useState<{ msg: string; error: boolean }>({
+    msg: "",
+    error: false,
+  });
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const router = useRouter();
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    console.log(email);
-    console.log(password);
+    setIsLoading(true);
+
+    await signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+
+        router.push("/home");
+      })
+      .catch((error) => {
+        setTimeout(() => {
+          setIsLoading(false);
+          setAlert({
+            msg: "The information sent is not incorrect",
+            error: true,
+          });
+        }, 2000);
+
+        setTimeout(() => {
+          setAlert({ msg: "", error: false });
+        }, 5000);
+      });
   };
 
   const handleChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
@@ -45,19 +78,11 @@ const Login = () => {
   const signInWithGoogle = async () => {
     await signInWithPopup(auth, provider)
       .then((result) => {
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-
-        const token = credential?.accessToken;
-
         const user = result.user;
 
-        console.log(token);
-        console.log(user.displayName);
+        router.push("/home");
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        const email = error.customData.email;
         GoogleAuthProvider.credentialFromError(error);
       });
   };
@@ -83,17 +108,24 @@ const Login = () => {
             <PasswordInput setPassword={setPassword} />
 
             <ForgotPasswordDiv>
-              <Link href={"/"}>Forgot Password?</Link>
+              <Link href={"/forgot-password"}>Forgot Password?</Link>
             </ForgotPasswordDiv>
           </FormFields>
 
-          <ButtonForm type="submit" className={poppins.className}>
-            Sign In
-          </ButtonForm>
+          {alert.msg && <Alert message={alert} />}
 
-          <SignUpSignIn>
-            Don't have an account? <Link href={"/register"}>Sign Up</Link>
-          </SignUpSignIn>
+          {isLoading ? (
+            <Loading />
+          ) : (
+            <>
+              <ButtonForm type="submit" className={poppins.className}>
+                Sign In
+              </ButtonForm>
+              <SignUpSignIn>
+                Don't have an account? <Link href={"/register"}>Sign Up</Link>
+              </SignUpSignIn>
+            </>
+          )}
         </Form>
 
         <Hr />

@@ -5,7 +5,7 @@ interface Props {
   message: { msg: string; error: boolean };
 }
 
-const Container = styled.div<{ $error: boolean }>`
+const ContainerAlert = styled.div<{ $error: boolean }>`
   background: ${(p) => (p.$error ? "#fecaca" : "#a7f3d0")};
   text-align: center;
   font-size: 0.8rem;
@@ -19,7 +19,7 @@ const Container = styled.div<{ $error: boolean }>`
 const Alert = ({ message }: Props) => {
   const { msg, error } = message;
 
-  return <Container $error={error}>{msg}</Container>;
+  return <ContainerAlert $error={error}>{msg}</ContainerAlert>;
 };
 
 export default Alert;

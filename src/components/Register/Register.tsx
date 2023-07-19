@@ -35,6 +35,7 @@ const FieldsWrapper = styled.div`
 
 const SuccessP = styled.p`
   text-align: center;
+  font-size: 0.9rem;
 `;
 
 const Login = () => {
@@ -82,15 +83,10 @@ const Login = () => {
         setTimeout(() => {
           setIsLoading(false);
           setAlert({
-            msg: "Account created successfully, check email for verify",
+            msg: "Account created successfully",
             error: false,
           });
         }, 2000);
-
-        setName("");
-        setEmail("");
-        setPassword("");
-        setConfirmPassword("");
 
         setTimeout(() => {
           router.push("/");
@@ -99,7 +95,6 @@ const Login = () => {
       .catch((error) => {
         setTimeout(() => {
           setIsLoading(false);
-          setSuccess(false);
           setAlert({
             msg: "The email address is already in use",
             error: true,
@@ -115,7 +110,7 @@ const Login = () => {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.id === "name") {
-      setName(e.target.value);
+      setName(e.target.value.replace(/\s+/g, " ").trim());
     } else if (e.target.id === "email") {
       setEmail(e.target.value);
     }
@@ -129,7 +124,7 @@ const Login = () => {
         <Form onSubmit={handleSubmit} className={poppins.className}>
           <FieldsWrapper>
             <FormFields>
-              <FormLabels htmlFor="name">Name</FormLabels>
+              <FormLabels htmlFor="name">First Name</FormLabels>
               <Input required type="text" id="name" onChange={handleChange} />
             </FormFields>
             <FormFields>
@@ -146,6 +141,7 @@ const Login = () => {
             <FormLabels htmlFor="confirmPassword">Confirm Password</FormLabels>
             <PasswordInput setPassword={setConfirmPassword} $confirmPassword />
           </FormFields>
+
           {alert.msg && <Alert message={alert} />}
 
           {success && isLoading === false ? (
