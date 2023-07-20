@@ -1,41 +1,44 @@
 "use client";
 
-import {
-  createContext,
-  useState,
-  Dispatch,
-  SetStateAction,
-  ReactNode,
-} from "react";
+import { createContext, useState, ReactNode, useContext } from "react";
 
 type ContextProps = {
-  theme: string;
-  setTheme: Dispatch<SetStateAction<string>>;
+  themeContext: string;
+  toggleTheme: () => void;
 };
 
-const AppContext = createContext<ContextProps>({
-  theme: "",
-  setTheme: () => {},
-});
+const AppContext = createContext<ContextProps | null>(null);
 
 type AppProviderProps = {
   children: ReactNode;
 };
 
 const AppProvider = ({ children }: AppProviderProps) => {
-  const [theme, setTheme] = useState("light");
+  const [themeContext, setThemeContext] = useState("light");
+
+  const toggleTheme = () => {
+    setThemeContext((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+  };
 
   return (
     <AppContext.Provider
       value={{
-        theme,
-        setTheme,
+        themeContext,
+        toggleTheme,
       }}
     >
       {children}
     </AppContext.Provider>
   );
 };
+
+export function useTheme() {
+  const context = useContext(AppContext);
+  if (!context) {
+    throw new Error("useTheme must be used within a ThemeProvider");
+  }
+  return context;
+}
 
 export { AppProvider };
 

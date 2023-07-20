@@ -3,6 +3,7 @@ import { Metadata } from "next";
 
 import ThemeWrapper from "./ThemeWrapper";
 import { poppins } from "./fonts";
+import { AppProvider } from "@/context/AppProvider";
 
 export const metadata: Metadata = {
   title: "Better To-Do List",
@@ -17,7 +18,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={poppins.className}>
-        <ThemeWrapper>{children}</ThemeWrapper>
+        <AppProvider>
+          <ThemeWrapper>{children}</ThemeWrapper>
+        </AppProvider>
       </body>
     </html>
   );
