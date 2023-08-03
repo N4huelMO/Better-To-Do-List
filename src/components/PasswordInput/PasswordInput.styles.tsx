@@ -1,3 +1,4 @@
+import { Theme } from "@/helpers/constants";
 import styled from "styled-components";
 
 const PasswordInputWrapper = styled.div`
@@ -21,12 +22,12 @@ const ToggleButton = styled.button`
   outline: none;
   display: flex;
   background: transparent;
-  transition-duration: 0.2s;
+  transition: 0.3s ease;
   border-radius: 0.5rem;
   padding: 0.5rem;
 
   &:hover {
-    background-color: #bae6fd;
+    background: ${(p) => (p.theme.id != Theme.Dark ? "#0369a1" : "#525252")};
   }
 `;
 

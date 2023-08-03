@@ -1,10 +1,25 @@
 "use client";
 
-import { createContext, useState, ReactNode, useContext } from "react";
+import {
+  createContext,
+  useState,
+  ReactNode,
+  useContext,
+  Dispatch,
+  SetStateAction,
+} from "react";
 
 type ContextProps = {
   themeContext: string;
-  toggleTheme: () => void;
+  toggleTheme: (e?: string) => void | (() => {});
+  email: string;
+  setEmail: Dispatch<SetStateAction<string>>;
+  password: string;
+  setPassword: Dispatch<SetStateAction<string>>;
+  alert: { msg: string; error: boolean };
+  setAlert: Dispatch<SetStateAction<{ msg: string; error: boolean }>>;
+  isLoading: boolean;
+  setIsLoading: Dispatch<SetStateAction<boolean>>;
 };
 
 const AppContext = createContext<ContextProps | null>(null);
@@ -14,10 +29,20 @@ type AppProviderProps = {
 };
 
 const AppProvider = ({ children }: AppProviderProps) => {
-  const [themeContext, setThemeContext] = useState("light");
+  const [themeContext, setThemeContext] = useState<string>("light");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [alert, setAlert] = useState<{ msg: string; error: boolean }>({
+    msg: "",
+    error: false,
+  });
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const toggleTheme = () => {
-    setThemeContext((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+  const toggleTheme = (e?: string) => {
+    if (e) {
+      setThemeContext(e);
+      return;
+    }
   };
 
   return (
@@ -25,6 +50,14 @@ const AppProvider = ({ children }: AppProviderProps) => {
       value={{
         themeContext,
         toggleTheme,
+        email,
+        setEmail,
+        password,
+        setPassword,
+        alert,
+        setAlert,
+        isLoading,
+        setIsLoading,
       }}
     >
       {children}
@@ -32,10 +65,10 @@ const AppProvider = ({ children }: AppProviderProps) => {
   );
 };
 
-export function useTheme() {
+export function useAppContext() {
   const context = useContext(AppContext);
   if (!context) {
-    throw new Error("useTheme must be used within a ThemeProvider");
+    throw new Error("useAppContext must be used within a ThemeProvider");
   }
   return context;
 }

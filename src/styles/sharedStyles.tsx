@@ -1,11 +1,9 @@
 "use client";
+import { Theme } from "@/helpers/constants";
 import styled from "styled-components";
 
-interface ButtonProps {
-  $secondary?: boolean;
-}
-
 const Container = styled.div`
+  width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -15,23 +13,24 @@ const Container = styled.div`
   }
 `;
 
-const Input = styled.input`
-  padding: 1rem;
+const Input = styled.input<{ $secondary?: boolean }>`
+  padding: ${(p) => (p.$secondary ? "0.7rem 1rem" : "1rem")};
   outline: none;
   border-radius: 0.5rem;
-  border: 1px solid transparent;
-  background: ${(p) =>
-    p.theme.id === "dark" ? `${p.theme.secondaryColor}` : "#e0f2fe"};
+  border: 2px solid transparent;
+  background: ${(p) => (p.theme.id != Theme.Dark ? "#e0f2fe" : "#404040")};
   color: ${(p) => p.theme.bodyFontColor};
-  width: 100%;
-  transition: 0.2s ease;
+  width: ${(p) => (p.$secondary ? "40%" : "100%")};
+  transition: 0.3s ease;
 
   &:hover,
   &:focus {
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px,
-      rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
-
-    border: 1px solid #bae6fd;
+    box-shadow: ${(p) =>
+      p.theme.id != Theme.Dark
+        ? " rgba(0, 0, 0, 0.1) 0px 0px 5px 0px,  rgba(0, 0, 0, 0.1) 0px 0px 1px 0px"
+        : "rgb(54, 54, 54) 0px 0px 5px 0px, rgb(54, 54, 54) 0px 0px 1px 0px"};
+    border: 2px solid
+      ${(p) => (p.theme.id != Theme.Dark ? "#bae6fd" : "#737373")};
   }
 `;
 
@@ -81,31 +80,36 @@ const FormLabels = styled.label`
   margin: 0 0 0.2rem 0.5rem;
 `;
 
-const ButtonForm = styled.button<ButtonProps>`
+const ButtonForm = styled.button`
   width: 100%;
-  margin-top: ${(p) => (p.$secondary ? "0.5rem" : "0")};
-  padding: ${(p) => (p.$secondary ? "0.55rem 0" : "1rem 0")};
+  margin-top: 0;
+  padding: 1rem 0;
   border-radius: 0.5rem;
-  border: ${(p) => (p.$secondary ? "2px solid #0c4a6e" : "transparent")};
-  background: ${(p) => (p.$secondary ? "#e0f2fe" : "#0362a1")};
-  color: ${(p) => (p.$secondary ? "black" : "white")};
+  border: transparent;
+  background: ${(p) => (p.theme.id != Theme.Dark ? "#0284c7" : "#525252")};
+  color: white;
   font-weight: bold;
   font-size: 1rem;
   cursor: pointer;
   transition: 0.3s ease;
+
+  &:hover {
+    background: ${(p) => (p.theme.id != Theme.Dark ? "#0369a1" : "#404040")};
+  }
+`;
+const GoogleSignInButton = styled(ButtonForm)`
+  margin-top: 0.5rem;
+  padding: 0.55rem 0;
+  border: 2px solid ${(p) => (p.theme.id != Theme.Dark ? "#0369a1" : "#262626")};
+  background: ${(p) => (p.theme.id != Theme.Dark ? "#e0f2fe" : "#525252")};
+  color: ${(p) => p.theme.bodyFontColor};
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
 
   &:hover {
-    background: ${(p) => (p.$secondary ? "#bae6fd" : "#082f49")};
-  }
-
-  &:disabled {
-    background: #e0f2fe;
-    color: #bae6fd;
-    cursor: not-allowed;
+    background: ${(p) => (p.theme.id != Theme.Dark ? "#bae6fd" : "#404040")};
   }
 `;
 
@@ -128,5 +132,6 @@ export {
   FormFields,
   FormLabels,
   ButtonForm,
+  GoogleSignInButton,
   SignUpSignIn,
 };

@@ -23,6 +23,7 @@ import Alert from "../Alert";
 import styled from "styled-components";
 import formValidation from "@/helpers/formValidation";
 import Loading from "../Loading";
+import { useAppContext } from "@/context/AppProvider";
 
 const FieldsWrapper = styled.div`
   display: flex;
@@ -39,15 +40,19 @@ const SuccessP = styled.p`
 `;
 
 const Login = () => {
+  const {
+    email,
+    setEmail,
+    password,
+    setPassword,
+    alert,
+    setAlert,
+    isLoading,
+    setIsLoading,
+  } = useAppContext();
+
   const [name, setName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
-  const [alert, setAlert] = useState<{ msg: string; error: boolean }>({
-    msg: "",
-    error: false,
-  });
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
 
   const router = useRouter();
@@ -89,6 +94,7 @@ const Login = () => {
         }, 2000);
 
         setTimeout(() => {
+          setAlert({ msg: "", error: false });
           router.push("/");
         }, 5000);
       })

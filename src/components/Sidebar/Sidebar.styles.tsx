@@ -1,5 +1,6 @@
 "use client";
 
+import { Theme } from "@/helpers/constants";
 import styled from "styled-components";
 
 const SidebarContainer = styled.aside`
@@ -8,8 +9,7 @@ const SidebarContainer = styled.aside`
   justify-content: center;
   align-items: center;
   text-align: center;
-  color: #204b88;
-  background-color: #7dd3fc;
+  background: ${(p) => (p.theme.id != Theme.Dark ? "#bae6fd" : "#262626")};
 
   @media (min-width: 992px) {
     height: 100%;
@@ -31,7 +31,6 @@ const SidebarContent = styled.div`
 const H1 = styled.h1`
   margin-bottom: 1rem;
   font-size: 1.8rem;
-  color: #0369a1;
 
   @media (min-width: 992px) {
     margin-bottom: 2rem;

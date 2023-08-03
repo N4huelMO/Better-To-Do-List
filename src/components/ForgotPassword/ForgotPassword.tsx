@@ -7,13 +7,14 @@ import {
   FormLabels,
   Input,
 } from "@/styles/sharedStyles";
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent } from "react";
 import { poppins } from "@/app/fonts";
 import { styled } from "styled-components";
 import Link from "next/link";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "@/firebase/config";
 import Alert from "../Alert";
+import { useAppContext } from "@/context/AppProvider";
 
 const StyledLinkContainer = styled.div`
   display: flex;
@@ -28,11 +29,7 @@ const StyledLink = styled(Link)`
 `;
 
 const ForgotPassword = () => {
-  const [email, setEmail] = useState<string>("");
-  const [alert, setAlert] = useState<{ msg: string; error: boolean }>({
-    msg: "",
-    error: false,
-  });
+  const { email, setEmail, alert, setAlert } = useAppContext();
 
   const handleChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);

@@ -1,8 +1,6 @@
 "use client";
-import { Container } from "@/styles/sharedStyles";
 import { Metadata } from "next";
-import Sidebar from "../components/Sidebar/Sidebar";
-import Login from "../components/Login/Login";
+import Login from "@/components/Login/Login";
 
 export const metadata: Metadata = {
   title: "Better To-Do List",
@@ -10,13 +8,7 @@ export const metadata: Metadata = {
 };
 
 const page = () => {
-  return (
-    <Container>
-      <Sidebar />
-
-      <Login />
-    </Container>
-  );
+  return <Login />;
 };
 
 export default page;

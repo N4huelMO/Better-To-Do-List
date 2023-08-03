@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useContext, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -19,6 +19,7 @@ import {
   FormLabels,
   Input,
   SignUpSignIn,
+  GoogleSignInButton,
 } from "@/styles/sharedStyles";
 
 import {
@@ -32,16 +33,19 @@ import Alert from "../Alert";
 import Loading from "../Loading";
 import { useRouter } from "next/navigation";
 import userAuth from "@/helpers/userAuth";
+import { useAppContext } from "@/context/AppProvider";
 
 const Login = () => {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [alert, setAlert] = useState<{ msg: string; error: boolean }>({
-    msg: "",
-    error: false,
-  });
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState(false);
+  const {
+    email,
+    setEmail,
+    password,
+    setPassword,
+    alert,
+    setAlert,
+    isLoading,
+    setIsLoading,
+  } = useAppContext();
 
   const router = useRouter();
 
@@ -130,16 +134,15 @@ const Login = () => {
 
         <Hr />
 
-        <ButtonForm
+        <GoogleSignInButton
           onClick={() => {
             signInWithGoogle();
           }}
           className={poppins.className}
-          $secondary
         >
           <Image src={google} height={40} width={40} alt="Google Image" />
           Sign in with Google
-        </ButtonForm>
+        </GoogleSignInButton>
       </FormContent>
     </FormContainer>
   );

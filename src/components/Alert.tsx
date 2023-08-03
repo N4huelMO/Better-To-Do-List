@@ -2,10 +2,11 @@ import React from "react";
 import styled from "styled-components";
 
 interface Props {
+  secondary?: boolean;
   message: { msg: string; error: boolean };
 }
 
-const ContainerAlert = styled.div<{ $error: boolean }>`
+const ContainerAlert = styled.div<{ $secondary?: boolean; $error: boolean }>`
   background: ${(p) => (p.$error ? "#fecaca" : "#a7f3d0")};
   text-align: center;
   font-size: 0.8rem;
@@ -14,12 +15,17 @@ const ContainerAlert = styled.div<{ $error: boolean }>`
   border-radius: 0.5rem;
   color: ${(p) => (p.$error ? "#7f1d1d" : "#064e3b")};
   font-weight: bold;
+  width: ${(p) => (p.$secondary ? "40%" : "100%")};
 `;
 
-const Alert = ({ message }: Props) => {
+const Alert = ({ message, secondary }: Props) => {
   const { msg, error } = message;
 
-  return <ContainerAlert $error={error}>{msg}</ContainerAlert>;
+  return (
+    <ContainerAlert $secondary={secondary} $error={error}>
+      {msg}
+    </ContainerAlert>
+  );
 };
 
 export default Alert;

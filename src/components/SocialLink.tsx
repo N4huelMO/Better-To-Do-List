@@ -1,10 +1,9 @@
-import Image from "next/image";
 import Link from "next/link";
 
-import instagram from "../../public/img/instagram.svg";
-import github from "../../public/img/github.svg";
-import linkedin from "../../public/img/linkedin.svg";
 import styled from "styled-components";
+
+import { AiFillInstagram, AiFillGithub, AiFillLinkedin } from "react-icons/ai";
+import React from "react";
 
 const SocialMedia = styled.div`
   display: none;
@@ -13,16 +12,13 @@ const SocialMedia = styled.div`
     display: flex;
   }
 
-  img {
-    transition-duration: 0.3s;
-
-    @media (min-width: 99px) {
-      height: 50px;
-      width: 50px;
-    }
+  svg {
+    transition: 0.2s ease;
+    height: 50px;
+    width: 50px;
   }
 
-  img:hover {
+  svg:hover {
     cursor: pointer;
     transform: scale(1.3);
   }
@@ -40,17 +36,17 @@ const SocialLink = () => {
     {
       href: "https://www.instagram.com/nahuelmesaa",
       alt: "instagram",
-      src: instagram,
+      icon: <AiFillInstagram></AiFillInstagram>,
     },
     {
       href: "https://github.com/N4huelMO",
       alt: "github",
-      src: github,
+      icon: <AiFillGithub></AiFillGithub>,
     },
     {
       href: "https://www.linkedin.com/in/nahuelmesa97/",
       alt: "linkedin",
-      src: linkedin,
+      icon: <AiFillLinkedin></AiFillLinkedin>,
     },
   ];
 
@@ -63,13 +59,7 @@ const SocialLink = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Image
-            priority
-            alt={link.alt}
-            src={link.src}
-            width={50}
-            height={50}
-          />
+          {link.icon}
         </Link>
       ))}
     </SocialMedia>

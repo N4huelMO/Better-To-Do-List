@@ -4,6 +4,8 @@ import { Metadata } from "next";
 import ThemeWrapper from "./ThemeWrapper";
 import { poppins } from "./fonts";
 import { AppProvider } from "@/context/AppProvider";
+import Sidebar from "@/components/Sidebar/Sidebar";
+import { Container } from "@/styles/sharedStyles";
 
 export const metadata: Metadata = {
   title: "Better To-Do List",
@@ -19,7 +21,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={poppins.className}>
         <AppProvider>
-          <ThemeWrapper>{children}</ThemeWrapper>
+          <ThemeWrapper>
+            <Container>
+              <Sidebar />
+              {children}
+            </Container>
+          </ThemeWrapper>
         </AppProvider>
       </body>
     </html>

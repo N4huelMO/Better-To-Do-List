@@ -21,7 +21,7 @@ const Hr = styled.hr`
   overflow: visible;
   border: none;
   border-top: 1px solid #e0e0e0;
-  color: #6e6d7a;
+  color: ${(p) => p.theme.bodyFontColor};
   text-align: center;
 
   &::after {
@@ -30,7 +30,7 @@ const Hr = styled.hr`
     position: relative;
     top: -14px;
     padding: 0 16px;
-    background: #fff;
+    background: ${(p) => p.theme.bodyBackgroundColor};
   }
 `;
 
