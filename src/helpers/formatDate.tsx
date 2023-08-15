@@ -1,7 +1,9 @@
-export const formatDate = (date: number) => {
-  const formatted = new Date(date);
+export const formatDate = (date: number | string) => {
+  const inputDate = new Date(date + "T00:00:00Z");
 
-  const options: any = { day: "2-digit", year: "2-digit", month: "numeric" };
+  const year = inputDate.getUTCFullYear().toString().slice(-2);
+  const month = (inputDate.getUTCMonth() + 1).toString().padStart(2, "0");
+  const day = inputDate.getUTCDate().toString().padStart(2, "0");
 
-  return formatted.toLocaleDateString("en-us", options);
+  return `${month}/${day}/${year}`;
 };

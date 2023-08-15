@@ -1,8 +1,7 @@
 "use client";
 import { auth, db } from "@/firebase/config";
-import { Theme } from "@/helpers/constants";
 import userAuth from "@/helpers/userAuth";
-import { Input } from "@/styles/sharedStyles";
+
 import {
   addDoc,
   collection,
@@ -10,242 +9,173 @@ import {
   doc,
   onSnapshot,
   query,
+  updateDoc,
   where,
 } from "firebase/firestore";
-import React, { ChangeEvent, useState } from "react";
-import styled, { keyframes } from "styled-components";
-import { useEffect } from "react";
+
+import React, { ChangeEvent, useState, useEffect, SetStateAction } from "react";
+
 import { formatDate } from "../../helpers/formatDate";
+
 import Loading from "@/components/Loading";
 
-const Container = styled.div`
-  width: 100%;
-  padding: 4rem 2rem;
+import {
+  TbEdit,
+  TbTrash,
+  TbSquareRoundedCheck,
+  TbSquareRounded,
+} from "react-icons/tb";
 
-  @media (min-width: 1200px) {
-    padding: 4rem 5rem;
-  }
-`;
-
-const HeadDiv = styled.div`
-  margin-bottom: 2rem;
-
-  h1 {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
-  }
-
-  h4 {
-    font-size: 1rem;
-    color: ${(p) => (p.theme.id != Theme.Dark ? "#4d718a" : "#949494")};
-  }
-`;
-
-const AddTaskForm = styled.form`
-  display: flex;
-  gap: 2rem;
-  margin-bottom: 1rem;
-  width: 100%;
-
-  button {
-    padding: 0 2rem;
-    border-radius: 0.5rem;
-    text-transform: uppercase;
-    font-weight: bold;
-    background: ${(p) => (p.theme.id != Theme.Dark ? "#0284c7" : "#525252")};
-    border: transparent;
-    color: white;
-    cursor: pointer;
-    transition: 0.3s ease;
-
-    &:hover {
-      background: ${(p) => (p.theme.id != Theme.Dark ? "#0369a1" : "#404040")};
-    }
-  }
-`;
-
-const BoardContainer = styled.div`
-  width: 100%;
-
-  h3 {
-    font-size: 1.5rem;
-    margin-left: 0.5rem;
-    margin-bottom: 0.5rem;
-  }
-`;
-
-const Board = styled.div`
-  display: flex;
-  flex-direction: column;
-  border-radius: 0.5rem;
-  border-top: 3px solid
-    ${(p) => (p.theme.id != Theme.Dark ? "#5d9ac5" : "#949494")};
-  border-left: 3px solid
-    ${(p) => (p.theme.id != Theme.Dark ? "#5d9ac5" : "#949494")};
-  border-bottom: 3px solid
-    ${(p) => (p.theme.id != Theme.Dark ? "#5d9ac5" : "#949494")};
-  border-right: 2px solid
-    ${(p) => (p.theme.id != Theme.Dark ? "#5d9ac5" : "#949494")};
-  max-height: 600px;
-  overflow: auto;
-
-  &::-webkit-scrollbar {
-    width: 12px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: ${(p) => (p.theme.id != Theme.Dark ? "#5d9ac5" : "#949494")};
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: ${(p) =>
-      p.theme.id != Theme.Dark ? "#ceebff" : "#666666"};
-    border: 2px none #ffffff;
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
-  }
-`;
-
-const Task = styled.div`
-  display: flex;
-  border-bottom: 3px solid
-    ${(p) => (p.theme.id != Theme.Dark ? "#5d9ac5" : "#949494")};
-
-  &:last-child {
-    border-bottom: none;
-  }
-`;
-
-const HeaderBoard = styled.div`
-  display: flex;
-  align-items: center;
-  border-bottom: 3px solid
-    ${(p) => (p.theme.id != Theme.Dark ? "#5d9ac5" : "#949494")};
-  position: sticky;
-  top: 0px;
-  background: ${(p) => (p.theme.id != Theme.Dark ? "#bae6fd" : "#262626")};
-`;
-
-const DivWithBorderRight = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 0.5rem 1rem;
-  border-right: 3px solid
-    ${(p) => (p.theme.id != Theme.Dark ? "#5d9ac5" : "#949494")};
-  font-weight: bold;
-  width: 5rem;
-`;
-
-const DateDiv = styled(DivWithBorderRight)`
-  width: 6rem;
-`;
-
-const TaskDiv = styled(DivWithBorderRight)`
-  flex-grow: 1;
-  padding: 0.5rem 0.5rem;
-`;
-
-const StatusDiv = styled(DivWithBorderRight)`
-  background: rgb(226, 68, 92);
-  color: white;
-`;
-
-const ActionsDiv = styled(DivWithBorderRight)`
-  border-right: 2px solid
-    ${(p) => (p.theme.id != Theme.Dark ? "#5d9ac5" : "#949494")};
-  font-weight: bold;
-  width: 7rem;
-`;
-
-const NoTaskP = styled.p`
-  padding: 3rem;
-  text-align: center;
-  font-size: 1.5rem;
-  font-weight: bold;
-`;
+import {
+  AddTaskButton,
+  AddTaskDateInput,
+  AddTaskForm,
+  AddTaskInput,
+  HeadDiv,
+  InputButtonContainer,
+  NoTasks,
+  Table,
+  TableContainer,
+  Task,
+  TaskButton,
+  TaskButtonsDiv,
+  TaskContent,
+  TaskDate,
+  TaskDescription,
+  TaskRemaining,
+} from "./styles";
 
 interface Tasks {
   creator: { id: string; name: string };
   date: number;
-  status: string;
-  task: string;
+  complete: string;
+  description: string;
   taskId: string;
 }
 
 const page = () => {
+  const defaultDate = new Date();
+
+  const defaultValue = `${defaultDate.getFullYear()}-${(
+    defaultDate.getMonth() + 1
+  )
+    .toString()
+    .padStart(2, "0")}-${defaultDate.getDate().toString().padStart(2, "0")}`;
+
   const [task, setTask] = useState<string>("");
   const [tasks, setTasks] = useState<Array<Tasks>>([]);
+  const [date, setDate] = useState<string | number>(defaultValue);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [idTask, setIdTask] = useState<string>("");
 
-  const handleChangeTask = (e: ChangeEvent<HTMLInputElement>) => {
-    setTask(e.target.value.trimStart());
+  const minDate = new Date().toISOString().split("T")[0];
+
+  const { currentUser } = userAuth();
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.id === "task") {
+      setTask(e.target.value.trimStart());
+    } else if (e.target.id === "date") {
+      setDate(e.target.value);
+    }
   };
 
   const handleDelete = async (id: string) => {
     await deleteDoc(doc(db, "simpleTasks", id));
   };
 
+  const handleEdit = async (e: Tasks) => {
+    const { taskId, description, date } = e;
+
+    setIdTask(taskId);
+    setTask(description);
+    setDate(date);
+  };
+
+  const handleStatus = async (e: Tasks) => {
+    const { taskId, complete } = e;
+
+    const updatedTask = doc(db, "simpleTasks", taskId);
+
+    await updateDoc(updatedTask, {
+      complete: !complete,
+    });
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     setTask("");
+    setDate(defaultValue);
+
+    if (idTask) {
+      const updatedTask = doc(db, "simpleTasks", idTask);
+
+      setIdTask("");
+      setTask("");
+      setDate(defaultValue);
+
+      await updateDoc(updatedTask, {
+        description: task,
+        date,
+        complete: false,
+      });
+
+      return;
+    }
 
     const splitName = auth.currentUser?.displayName?.split(" ");
 
     const newTask = {
       creator: {
-        id: userId,
+        id: currentUser.uid,
         name: splitName?.[0],
       },
-      date: Date.now(),
-      status: "pending",
-      task: task.trimEnd(),
+      date,
+      complete: false,
+      description: task.trimEnd(),
     };
 
     await addDoc(collection(db, "simpleTasks"), newTask);
   };
 
-  const { userId } = userAuth();
-
   useEffect(() => {
-    const q = query(
-      collection(db, "simpleTasks"),
-      where("creator.id", "==", userId)
-    );
+    if (currentUser && currentUser.uid) {
+      const q = query(
+        collection(db, "simpleTasks"),
+        where("creator.id", "==", currentUser.uid)
+      );
 
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      const fetchedTasks: Array<Tasks> = [];
+      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+        setIsLoading(true);
 
-      querySnapshot.forEach((doc) => {
-        const data = doc.data() as Tasks;
+        const fetchedTasks: Array<Tasks> = [];
 
-        const taskId = doc.id;
+        querySnapshot.forEach((doc) => {
+          const data = doc.data() as Tasks;
 
-        data.taskId = taskId;
+          const taskId = doc.id;
 
-        fetchedTasks.push(data);
+          data.taskId = taskId;
+
+          fetchedTasks.push(data);
+        });
+
+        fetchedTasks.sort(
+          (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+        );
+
+        setTasks(fetchedTasks);
+
+        setIsLoading(false);
       });
 
-      fetchedTasks.sort((a, b) => Number(b.date) - Number(a.date));
-
-      setTasks(fetchedTasks);
-    });
-
-    return () => unsubscribe();
-  }, [userId]);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-  }, []);
+      return () => unsubscribe();
+    }
+  }, [currentUser]);
 
   return (
-    <Container>
+    <>
       <HeadDiv>
         <h1>Simple Tasks</h1>
         <h4>
@@ -255,59 +185,68 @@ const page = () => {
       </HeadDiv>
 
       <AddTaskForm onSubmit={handleSubmit}>
-        <Input
+        <AddTaskInput
           $secondary
           required
           type="text"
-          onChange={handleChangeTask}
+          onChange={handleChange}
+          id="task"
           value={task}
         />
-        <button>add new task</button>
+
+        <InputButtonContainer>
+          <AddTaskDateInput
+            type="date"
+            min={minDate}
+            value={date}
+            id="date"
+            onChange={handleChange}
+          />
+          <AddTaskButton>{idTask ? "edit task" : "add new task"}</AddTaskButton>
+        </InputButtonContainer>
+
+        <TaskRemaining>Task remaining: {tasks.length}</TaskRemaining>
       </AddTaskForm>
 
-      <BoardContainer>
-        <h3>Tasks</h3>
+      <TableContainer>
+        <Table>
+          {isLoading ? (
+            <Loading />
+          ) : tasks.length === 0 ? (
+            <NoTasks>You haven't scored any tasks yet!</NoTasks>
+          ) : (
+            tasks.map((task, i) => (
+              <Task key={i}>
+                <TaskContent>
+                  <TaskDate>{formatDate(task.date)}</TaskDate>
+                  <TaskDescription $complete={task.complete}>
+                    {task.description}
+                  </TaskDescription>
+                </TaskContent>
 
-        <Board>
-          <HeaderBoard>
-            <DateDiv>Date</DateDiv>
-            <TaskDiv>Task</TaskDiv>
-            <DivWithBorderRight>Status</DivWithBorderRight>
-            <ActionsDiv>Actions</ActionsDiv>
-          </HeaderBoard>
+                <TaskButtonsDiv>
+                  <TaskButton onClick={() => handleStatus(task)}>
+                    {task.complete ? (
+                      <TbSquareRoundedCheck size={27}></TbSquareRoundedCheck>
+                    ) : (
+                      <TbSquareRounded size={27}></TbSquareRounded>
+                    )}
+                  </TaskButton>
 
-          <div>
-            {isLoading ? (
-              <Loading />
-            ) : tasks.length === 0 ? (
-              <NoTaskP>You haven't scored any tasks yet!</NoTaskP>
-            ) : (
-              tasks.map((task: any, i: number) => {
-                return (
-                  <Task key={i}>
-                    <DateDiv>
-                      <p>{formatDate(task.date)}</p>
-                    </DateDiv>
-                    <TaskDiv>{task.task}</TaskDiv>
-                    <StatusDiv></StatusDiv>
-                    <ActionsDiv>
-                      <button>edit</button>
-                      <button
-                        onClick={() => {
-                          handleDelete(task.taskId);
-                        }}
-                      >
-                        delete
-                      </button>
-                    </ActionsDiv>
-                  </Task>
-                );
-              })
-            )}
-          </div>
-        </Board>
-      </BoardContainer>
-    </Container>
+                  <TaskButton onClick={() => handleEdit(task)}>
+                    <TbEdit size={27}></TbEdit>
+                  </TaskButton>
+
+                  <TaskButton onClick={() => handleDelete(task.taskId)}>
+                    <TbTrash size={27}></TbTrash>
+                  </TaskButton>
+                </TaskButtonsDiv>
+              </Task>
+            ))
+          )}
+        </Table>
+      </TableContainer>
+    </>
   );
 };
 

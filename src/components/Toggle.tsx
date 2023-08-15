@@ -1,14 +1,11 @@
-import Image from "next/image";
 import styled from "styled-components";
-import sunImg from "../../public/img/sun.svg";
-import darkSunImg from "../../public/img/darkSun.svg";
-import moonImg from "../../public/img/moon.svg";
-import darkMoonImg from "../../public/img/darkMoon.svg";
 import { Theme } from "@/helpers/constants";
 
-const Container = styled.div<PropsStyles>`
+import { BiSolidMoon, BiSolidSun } from "react-icons/bi";
+
+const Container = styled.div`
   margin: 0 5px;
-  width: ${(p) => (p.$isOpen ? "220px" : "55px")};
+  width: 220px;
   height: 50px;
   border: 2px solid ${(p) => (p.theme.id != Theme.Dark ? "#9ecce5" : "#525252")};
   border-radius: 0.5rem;
@@ -19,7 +16,7 @@ const Container = styled.div<PropsStyles>`
   gap: 1.5rem;
 `;
 
-const Button = styled.div<PropsStyles>`
+const Button = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -33,107 +30,62 @@ const Button = styled.div<PropsStyles>`
   }
 
   p {
-    display: ${(p) => (p.$isOpen ? "initial" : "none")};
     font-weight: bold;
     font-size: 0.9rem;
   }
+
+  @media (min-width: 992px) {
+    p {
+      display: initial;
+    }
+  }
 `;
 
-const Circle = styled.div<PropsStyles>`
+const Circle = styled.div`
   position: absolute;
-  width: ${(p) => (p.$isOpen ? "100px" : "45px")};
+  width: 100px;
   height: 40px;
   border-radius: 0.5rem;
   background: ${(p) => (p.theme.id != Theme.Dark ? "#b4ddf3" : "#525252")};
   margin: 0 3px;
+  transition: 0.2s;
   transform: ${(p) =>
-    p.theme.id === Theme.Dark && p.$isOpen == true
-      ? "translateX(110px)"
-      : "translateX(0px)"};
-  transition: ${(p) => (p.$isOpen ? "0.2s" : "")};
+    p.theme.id === Theme.Dark ? "translateX(110px)" : "translateX(0px)"};
+
+  @media (min-width: 992px) {
+    transition: 0.2s;
+    width: 100px;
+    transform: ${(p) =>
+      p.theme.id === Theme.Dark ? "translateX(110px)" : "translateX(0px)"};
+  }
 `;
 
 interface Props {
-  isActive: boolean;
   toggleTheme: (e?: string) => void | (() => {});
-  isOpen: boolean;
 }
 
-interface PropsStyles {
-  $isOpen: boolean;
-}
-
-function ToggleButton({ isActive, toggleTheme, isOpen }: Props) {
+function ToggleButton({ toggleTheme }: Props) {
   return (
-    <Container $isOpen={isOpen}>
-      {!isOpen && !isActive && (
-        <Button
-          $isOpen={isOpen}
-          onClick={() => {
-            toggleTheme(Theme.Dark);
-          }}
-        >
-          <Image
-            src={isActive ? darkSunImg : sunImg}
-            height={20}
-            width={20}
-            alt="Sun Image"
-          />
-          <p>Light</p>
-        </Button>
-      )}
+    <Container>
+      <Button
+        onClick={() => {
+          toggleTheme(Theme.Light);
+        }}
+      >
+        <BiSolidSun size={20}></BiSolidSun>
+        <p>Light</p>
+      </Button>
 
-      {!isOpen && isActive && (
-        <Button
-          $isOpen={isOpen}
-          onClick={() => {
-            toggleTheme(Theme.Light);
-          }}
-        >
-          <Image
-            src={isActive ? darkMoonImg : moonImg}
-            height={20}
-            width={20}
-            alt="Moon Image"
-          />
-          <p>Dark</p>
-        </Button>
-      )}
+      <Button
+        onClick={() => {
+          toggleTheme(Theme.Dark);
+        }}
+      >
+        <BiSolidMoon size={20}></BiSolidMoon>
+        <p>Dark</p>
+      </Button>
 
-      {isOpen && (
-        <>
-          <Button
-            $isOpen={isOpen}
-            onClick={() => {
-              toggleTheme(Theme.Light);
-            }}
-          >
-            <Image
-              src={isActive ? darkSunImg : sunImg}
-              height={20}
-              width={20}
-              alt="Sun Image"
-            />
-            <p>Light</p>
-          </Button>
-          <Button
-            $isOpen={isOpen}
-            onClick={() => {
-              toggleTheme(Theme.Dark);
-            }}
-          >
-            <Image
-              src={isActive ? darkMoonImg : moonImg}
-              height={20}
-              width={20}
-              alt="Moon Image"
-            />
-            <p>Dark</p>
-          </Button>
-        </>
-      )}
-
-      <Circle $isOpen={isOpen} />
+      <Circle />
     </Container>
   );
 }

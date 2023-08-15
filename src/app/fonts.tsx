@@ -7,5 +7,5 @@ export const lobster = Lobster({
 
 export const poppins = Poppins({
   subsets: ["latin"],
-  weight: ["400", "700", "900"],
+  weight: ["200", "400", "700", "900"],
 });

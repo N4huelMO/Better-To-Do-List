@@ -1,50 +1,45 @@
 "use client";
-import ToggleButton from "@/components/Toggle";
+
 import { useAppContext } from "@/context/AppProvider";
-import React, { useContext, useState } from "react";
-import { ThemeContext } from "styled-components";
-import arrow from "../../../public/img/arrow.svg";
-import darkArrow from "../../../public/img/darkArrow.svg";
-import { Theme } from "@/helpers/constants";
-import Menu from "@/components/Menu";
-import { HeaderSidebar, SidebarContainerHome, StyledImage } from "./styles";
+
+import React, { useState } from "react";
+
+import Menu from "@/components/Menu/Menu";
+import ToggleButton from "@/components/Toggle";
+
+import {
+  Container,
+  HeaderSidebar,
+  SidebarContainerHome,
+  StyledSvg,
+} from "./styles";
 
 const layout = ({ children }: { children: React.ReactNode }) => {
-  const theme = useContext(ThemeContext);
-
   const { toggleTheme } = useAppContext();
 
-  const id = theme?.id;
-
-  const [open, setOpen] = useState<boolean>(true);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const handleClick = () => {
-    setOpen(!open);
+    setIsOpen(!isOpen);
   };
 
   return (
     <>
-      <SidebarContainerHome $isOpen={open}>
-        <HeaderSidebar $isOpen={open}>
-          <ToggleButton
-            isOpen={open}
-            isActive={id === "dark"}
-            toggleTheme={toggleTheme}
-          />
-          <StyledImage
+      <SidebarContainerHome>
+        <HeaderSidebar>
+          <ToggleButton toggleTheme={toggleTheme} />
+
+          <StyledSvg
+            size={30}
             onClick={handleClick}
-            $isOpen={open}
-            src={id != Theme.Dark ? arrow : darkArrow}
-            height={30}
-            width={30}
-            alt="Arrow image"
-          />
+            $isOpen={isOpen}
+          ></StyledSvg>
         </HeaderSidebar>
 
-        <Menu isOpen={open} />
+        <Menu isOpen={isOpen} setIsOpen={setIsOpen} />
       </SidebarContainerHome>
 
-      {children}
+      <Container>{children}</Container>
     </>
   );
 };

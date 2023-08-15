@@ -44,6 +44,7 @@ const AppProvider = ({ children }: AppProviderProps) => {
       return;
     }
   };
+  
 
   return (
     <AppContext.Provider
