@@ -50,7 +50,7 @@ interface Tasks {
   date: number;
   complete: string;
   description: string;
-  taskId: string;
+  id: string;
 }
 
 const page = () => {
@@ -85,17 +85,17 @@ const page = () => {
   };
 
   const handleEdit = async (e: Tasks) => {
-    const { taskId, description, date } = e;
+    const { id, description, date } = e;
 
-    setIdTask(taskId);
+    setIdTask(id);
     setTask(description);
     setDate(date);
   };
 
   const handleStatus = async (e: Tasks) => {
-    const { taskId, complete } = e;
+    const { id, complete } = e;
 
-    const updatedTask = doc(db, "simpleTasks", taskId);
+    const updatedTask = doc(db, "simpleTasks", id);
 
     await updateDoc(updatedTask, {
       complete: !complete,
@@ -104,9 +104,6 @@ const page = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    setTask("");
-    setDate(defaultValue);
 
     if (idTask) {
       const updatedTask = doc(db, "simpleTasks", idTask);
@@ -136,6 +133,9 @@ const page = () => {
       description: task.trimEnd(),
     };
 
+    setTask("");
+    setDate(defaultValue);
+
     await addDoc(collection(db, "simpleTasks"), newTask);
   };
 
@@ -154,9 +154,9 @@ const page = () => {
         querySnapshot.forEach((doc) => {
           const data = doc.data() as Tasks;
 
-          const taskId = doc.id;
+          const TaskId = doc.id;
 
-          data.taskId = taskId;
+          data.id = TaskId;
 
           fetchedTasks.push(data);
         });
@@ -237,7 +237,7 @@ const page = () => {
                     <TbEdit size={27}></TbEdit>
                   </TaskButton>
 
-                  <TaskButton onClick={() => handleDelete(task.taskId)}>
+                  <TaskButton onClick={() => handleDelete(task.id)}>
                     <TbTrash size={27}></TbTrash>
                   </TaskButton>
                 </TaskButtonsDiv>

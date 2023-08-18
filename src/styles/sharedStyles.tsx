@@ -86,6 +86,7 @@ const ButtonForm = styled.button`
   padding: 1rem 0;
   border-radius: 0.5rem;
   border: transparent;
+  text-transform: uppercase;
   background: ${(p) => (p.theme.id != Theme.Dark ? "#0284c7" : "#525252")};
   color: white;
   font-weight: bold;

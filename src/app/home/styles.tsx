@@ -1,7 +1,7 @@
 import { Theme } from "@/helpers/constants";
 import styled from "styled-components";
 import { BiArrowToLeft } from "react-icons/bi";
-import { Input } from "@/styles/sharedStyles";
+import { ButtonForm, Input } from "@/styles/sharedStyles";
 
 const SidebarContainerHome = styled.aside`
   display: flex;
@@ -45,7 +45,7 @@ const StyledSvg = styled(BiArrowToLeft)<{ $isOpen: boolean }>`
 
 const Container = styled.div`
   width: 100%;
-  padding: 4rem 1rem;
+  padding: 2rem;
 
   @media (min-width: 1200px) {
     padding: 4rem 4rem;
@@ -104,26 +104,12 @@ const AddTaskDateInput = styled(Input)`
   }
 `;
 
-const AddTaskButton = styled.button`
+const AddTaskButton = styled(ButtonForm)`
   padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  text-transform: uppercase;
-  font-weight: bold;
-  background: ${(p) => (p.theme.id != Theme.Dark ? "#0284c7" : "#525252")};
-  border: transparent;
-  color: white;
-  cursor: pointer;
   width: 50%;
-  transition: 0.3s ease;
-
-  &:hover {
-    background: ${(p) => (p.theme.id != Theme.Dark ? "#0369a1" : "#404040")};
-  }
 
   @media (min-width: 992px) {
-    padding: 1rem 2rem;
-
-    width: 220px;
+    width: 200px;
   }
 `;
 
@@ -140,7 +126,8 @@ const TableContainer = styled.div`
   }
 
   &::-webkit-scrollbar-track {
-    background: transparent;
+    background: ${(p) =>
+      p.theme.id != Theme.Dark ? "#3662816e" : "#5757576a"};
     border-radius: 100px;
   }
 
