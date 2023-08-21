@@ -120,6 +120,7 @@ const TaskRemaining = styled.p`
 const TableContainer = styled.div`
   max-height: 600px;
   overflow: auto;
+  padding: 0 0.5rem;
 
   &::-webkit-scrollbar {
     width: 8px;
@@ -170,7 +171,7 @@ const TaskContent = styled.div`
   align-items: center;
   text-align: center;
   width: 100%;
-  margin: 0.5rem 1rem;
+  padding: 0.5rem 1rem;
 
   @media (min-width: 992px) {
     flex-direction: row;
@@ -211,10 +212,11 @@ const TaskButton = styled.button`
 const TaskDate = styled.p`
   word-break: normal;
   width: 5.4rem;
-  text-align: left;
+  text-align: center;
   font-size: 0.8rem;
 
   @media (min-width: 992px) {
+    text-align: left;
     font-size: 1rem;
     border-right: 2px solid
       ${(p) => (p.theme.id != Theme.Dark ? "#5d9ac5" : "#949494")};
