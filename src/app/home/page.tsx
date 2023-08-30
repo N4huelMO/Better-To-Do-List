@@ -13,7 +13,7 @@ import {
   where,
 } from "firebase/firestore";
 
-import React, { ChangeEvent, useState, useEffect, SetStateAction } from "react";
+import React, { useState, useEffect } from "react";
 
 import { formatDate } from "../../helpers/formatDate";
 
@@ -29,7 +29,6 @@ import {
 import {
   AddTaskButton,
   AddTaskDateInput,
-  AddTaskForm,
   AddTaskInput,
   HeadDiv,
   InputButtonContainer,
@@ -44,6 +43,7 @@ import {
   TaskDescription,
   TaskRemaining,
 } from "./styles";
+import { HomeForm } from "@/styles/sharedStyles";
 
 interface Tasks {
   creator: { id: string; name: string };
@@ -72,7 +72,7 @@ const page = () => {
 
   const { currentUser } = userAuth();
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.id === "task") {
       setTask(e.target.value.trimStart());
     } else if (e.target.id === "date") {
@@ -184,9 +184,8 @@ const page = () => {
         </h4>
       </HeadDiv>
 
-      <AddTaskForm onSubmit={handleSubmit}>
+      <HomeForm onSubmit={handleSubmit}>
         <AddTaskInput
-          $secondary
           required
           type="text"
           onChange={handleChange}
@@ -206,7 +205,7 @@ const page = () => {
         </InputButtonContainer>
 
         <TaskRemaining>Task remaining: {tasks.length}</TaskRemaining>
-      </AddTaskForm>
+      </HomeForm>
 
       <TableContainer>
         <Table>

@@ -13,14 +13,14 @@ const Container = styled.div`
   }
 `;
 
-const Input = styled.input<{ $secondary?: boolean }>`
-  padding: ${(p) => (p.$secondary ? "0.7rem 1rem" : "1rem")};
+const Input = styled.input`
+  padding: 1rem;
   outline: none;
   border-radius: 0.5rem;
   border: 2px solid transparent;
   background: ${(p) => (p.theme.id != Theme.Dark ? "#e0f2fe" : "#404040")};
   color: ${(p) => p.theme.bodyFontColor};
-  width: ${(p) => (p.$secondary ? "40%" : "100%")};
+  width: 100%;
   transition: 0.3s ease;
 
   &:hover,
@@ -65,7 +65,7 @@ const FormContent = styled.div`
   }
 `;
 
-const Form = styled.form`
+const LoginRegisterForm = styled.form`
   margin-bottom: 2rem;
 `;
 
@@ -124,15 +124,29 @@ const SignUpSignIn = styled.p`
   }
 `;
 
+const HomeForm = styled.form`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+  width: 100%;
+
+  @media (min-width: 992px) {
+    flex-direction: row;
+  }
+`;
+
 export {
   Container,
   Input,
   FormContainer,
   FormContent,
-  Form,
+  LoginRegisterForm,
   FormFields,
   FormLabels,
   ButtonForm,
   GoogleSignInButton,
   SignUpSignIn,
+  HomeForm,
 };

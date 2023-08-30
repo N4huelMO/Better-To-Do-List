@@ -14,7 +14,7 @@ import {
   ButtonForm,
   FormContainer,
   FormContent,
-  Form,
+  LoginRegisterForm,
   FormFields,
   FormLabels,
   Input,
@@ -32,7 +32,6 @@ import { auth, provider } from "@/firebase/config";
 import Alert from "../Alert";
 import Loading from "../Loading";
 import { useRouter } from "next/navigation";
-import userAuth from "@/helpers/userAuth";
 import { useAppContext } from "@/context/AppProvider";
 
 const Login = () => {
@@ -96,7 +95,10 @@ const Login = () => {
       <FormContent>
         <h3>Login to Better To-Do List</h3>
 
-        <Form onSubmit={handleSubmit} className={poppins.className}>
+        <LoginRegisterForm
+          onSubmit={handleSubmit}
+          className={poppins.className}
+        >
           <FormFields>
             <FormLabels htmlFor="email">E-mail</FormLabels>
             <Input
@@ -130,7 +132,7 @@ const Login = () => {
               </SignUpSignIn>
             </>
           )}
-        </Form>
+        </LoginRegisterForm>
 
         <Hr />
 

@@ -13,7 +13,7 @@ import {
   ButtonForm,
   FormContainer,
   FormContent,
-  Form,
+  LoginRegisterForm,
   FormFields,
   FormLabels,
   Input,
@@ -127,7 +127,10 @@ const Login = () => {
       <FormContent>
         <h3>Register to Better To-Do List</h3>
 
-        <Form onSubmit={handleSubmit} className={poppins.className}>
+        <LoginRegisterForm
+          onSubmit={handleSubmit}
+          className={poppins.className}
+        >
           <FieldsWrapper>
             <FormFields>
               <FormLabels htmlFor="name">First Name</FormLabels>
@@ -165,7 +168,7 @@ const Login = () => {
               </SignUpSignIn>
             </>
           )}
-        </Form>
+        </LoginRegisterForm>
       </FormContent>
     </FormContainer>
   );

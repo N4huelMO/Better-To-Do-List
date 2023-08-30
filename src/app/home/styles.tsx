@@ -66,22 +66,8 @@ const HeadDiv = styled.div`
   }
 `;
 
-const AddTaskForm = styled.form`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  gap: 2rem;
-  margin-bottom: 1.5rem;
-  width: 100%;
-
-  @media (min-width: 992px) {
-    flex-direction: row;
-  }
-`;
-
 const AddTaskInput = styled(Input)`
   width: 100%;
-  padding: 1.1rem;
 
   @media (min-width: 992px) {
     width: 40%;
@@ -105,11 +91,13 @@ const AddTaskDateInput = styled(Input)`
 `;
 
 const AddTaskButton = styled(ButtonForm)`
-  padding: 0.5rem 1rem;
+  padding: 0.5rem;
+  font-size: 0.9rem;
   width: 50%;
 
   @media (min-width: 992px) {
     width: 200px;
+    font-size: initial;
   }
 `;
 
@@ -120,7 +108,7 @@ const TaskRemaining = styled.p`
 const TableContainer = styled.div`
   max-height: 600px;
   overflow: auto;
-  padding: 0 0.5rem;
+  padding-right: 0.5rem;
 
   &::-webkit-scrollbar {
     width: 8px;
@@ -128,12 +116,12 @@ const TableContainer = styled.div`
 
   &::-webkit-scrollbar-track {
     background: ${(p) =>
-      p.theme.id != Theme.Dark ? "#3662816e" : "#5757576a"};
+      p.theme.id != Theme.Dark ? "#5d9ac56c" : "#9494946c"};
     border-radius: 100px;
   }
 
   &::-webkit-scrollbar-thumb {
-    background: ${(p) => (p.theme.id != Theme.Dark ? "#366281" : "#575757")};
+    background: ${(p) => (p.theme.id != Theme.Dark ? "#5d9ac5" : "#949494")};
     border-radius: 100px;
   }
 `;
@@ -251,7 +239,6 @@ export {
   StyledSvg,
   HeadDiv,
   Container,
-  AddTaskForm,
   AddTaskInput,
   InputButtonContainer,
   AddTaskDateInput,
