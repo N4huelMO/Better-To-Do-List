@@ -185,7 +185,7 @@ const page = () => {
   const listTasksRef = data?.tasks;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTask(e.target.value);
+    setTask(e.target.value.trimStart());
   };
 
   const handleDelete = async (id: string) => {
@@ -231,7 +231,7 @@ const page = () => {
         if (selectedTask.id === idTask) {
           return {
             ...selectedTask,
-            description: task,
+            description: task.trimEnd(),
             complete: false,
           };
         }
@@ -252,7 +252,7 @@ const page = () => {
         ...(data?.tasks ?? []),
         {
           complete: false,
-          description: task,
+          description: task.trimEnd(),
           id: Date.now(),
         },
       ],

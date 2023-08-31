@@ -205,7 +205,7 @@ const page = () => {
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setList(e.target.value);
+    setList(e.target.value.trimStart());
   };
 
   const handleDelete = async (id: string) => {
