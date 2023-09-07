@@ -5,6 +5,7 @@ import { RiSettings4Fill } from "react-icons/ri";
 import { BiLogOut } from "react-icons/bi";
 
 import userAuth from "@/helpers/userAuth";
+import SocialLink from "../SocialLink";
 import {
   Container,
   LinksContainer,
@@ -86,6 +87,8 @@ const Menu = ({ isOpen, setIsOpen }: Props) => {
           <p>Logout</p>
         </StyledLink>
       </LinksContainer>
+
+      <SocialLink />
     </Container>
   );
 };

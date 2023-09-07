@@ -25,6 +25,13 @@ const loadingAnimation3 = keyframes`
     transform: scale(0);
   }`;
 
+const LoaderWrapper = styled.div<{ $calendar?: boolean }>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: ${(p) => (p.$calendar ? "80%" : "100%")};
+`;
+
 const Loader = styled.div`
   display: block;
   margin: 0 auto;
@@ -60,14 +67,16 @@ const Loader = styled.div`
   }
 `;
 
-const Loading = () => {
+const Loading = ({ $calendar }: any) => {
   return (
-    <Loader>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </Loader>
+    <LoaderWrapper $calendar={$calendar}>
+      <Loader>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </Loader>
+    </LoaderWrapper>
   );
 };
 

@@ -1,6 +1,6 @@
 import {
   ButtonForm,
-  Form,
+  LoginRegisterForm,
   FormContainer,
   FormContent,
   FormFields,
@@ -9,7 +9,7 @@ import {
 } from "@/styles/sharedStyles";
 import React, { ChangeEvent } from "react";
 import { poppins } from "@/app/fonts";
-import { styled } from "styled-components";
+import styled from "styled-components";
 import Link from "next/link";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "@/firebase/config";
@@ -66,7 +66,7 @@ const ForgotPassword = () => {
   return (
     <FormContainer>
       <FormContent>
-        <Form onSubmit={handleSubmit}>
+        <LoginRegisterForm onSubmit={handleSubmit}>
           <h3>Forgot Password</h3>
 
           <FormFields>
@@ -89,7 +89,7 @@ const ForgotPassword = () => {
           <StyledLinkContainer>
             <StyledLink href={"/"}>Back to Sign In</StyledLink>
           </StyledLinkContainer>
-        </Form>
+        </LoginRegisterForm>
       </FormContent>
     </FormContainer>
   );

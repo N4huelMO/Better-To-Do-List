@@ -1,4 +1,3 @@
-import { ChangeEvent, useContext, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -74,7 +73,7 @@ const Login = () => {
       });
   };
 
-  const handleChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
 

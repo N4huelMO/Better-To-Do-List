@@ -1,5 +1,6 @@
 "use client";
 
+import { lobster } from "@/app/fonts";
 import { Theme } from "@/helpers/constants";
 import styled from "styled-components";
 
@@ -31,6 +32,7 @@ const SidebarContent = styled.div`
 const H1 = styled.h1`
   margin-bottom: 1rem;
   font-size: 1.8rem;
+  font-family: var(--font-lobster);
 
   @media (min-width: 992px) {
     margin-bottom: 2rem;

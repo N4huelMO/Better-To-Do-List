@@ -1,7 +1,172 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
+import { HeadDiv } from "../styles";
+
+import FullCalendar from "@fullcalendar/react";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import interactionPlugin from "@fullcalendar/interaction";
+import styled from "styled-components";
+import { Theme } from "@/helpers/constants";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
+import { db } from "@/firebase/config";
+import userAuth from "@/helpers/userAuth";
+import Loading from "@/components/Loading";
+
+const FullCalendarWrapper = styled.div`
+  --fc-border-color: ${(p) => (p.theme.id != Theme.Dark ? "#89bde0" : "#fff")};
+
+  --fc-today-bg-color: ${(p) =>
+    p.theme.id != Theme.Dark ? "#e0f2fe" : "#404040"};
+
+  --fc-button-bg-color: ${(p) =>
+    p.theme.id != Theme.Dark ? "#0284c7" : "#525252"};
+
+  --fc-button-hover-bg-color: ${(p) =>
+    p.theme.id != Theme.Dark ? "#0369a1" : "#404040"};
+
+  --fc-button-border-color: ${(p) =>
+    p.theme.id != Theme.Dark ? "#082f49" : "#949494"};
+
+  --fc-button-hover-border-color: ${(p) =>
+    p.theme.id != Theme.Dark ? "#082f49" : "#949494"};
+
+  --fc-button-active-bg-color: ${(p) =>
+    p.theme.id != Theme.Dark ? "#082f49" : "#949494"};
+
+  --fc-button-active-border-color: ${(p) =>
+    p.theme.id != Theme.Dark ? "#082f49" : "#949494"};
+
+  --fc-event-bg-color: ${(p) =>
+    p.theme.id != Theme.Dark ? "#9cd6fd" : "#303030"};
+
+  --fc-event-border-color: ${(p) =>
+    p.theme.id != Theme.Dark ? "#4a81a7" : "#949494"};
+
+  --fc-event-text-color: ${(p) => p.theme.bodyFontColor};
+
+  .fc-daygrid-block-event .fc-event-time,
+  .fc-daygrid-block-event .fc-event-title {
+    display: flex;
+    justify-content: center;
+  }
+`;
+
+interface Tasks {
+  creator: { id: string; name: string };
+  date: number;
+  complete: string;
+  description: string;
+  id: string;
+}
+
+interface AccInterface {
+  [date: string]: number;
+}
 
 const page = () => {
-  return <div>Calendar</div>;
+  const handleClick = (e: any) => {
+    console.log(e);
+  };
+
+  const [windowWidth, setWindowWidth] = useState<number>(0);
+  const [tasks, setTasks] = useState<Array<Tasks>>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  const { currentUser } = userAuth();
+
+  useEffect(() => {
+    setWindowWidth(window.innerWidth);
+
+    window.addEventListener("resize", () => {
+      setWindowWidth(window.innerWidth);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (currentUser && currentUser.uid) {
+      const q = query(
+        collection(db, "simpleTasks"),
+        where("creator.id", "==", currentUser.uid)
+      );
+
+      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+        setIsLoading(true);
+
+        const fetchedTasks: Array<Tasks> = [];
+
+        querySnapshot.forEach((doc) => {
+          const data = doc.data() as Tasks;
+
+          const TaskId = doc.id;
+
+          data.id = TaskId;
+
+          fetchedTasks.push(data);
+        });
+
+        setTasks(fetchedTasks);
+
+        setIsLoading(false);
+      });
+
+      return () => unsubscribe();
+    }
+  }, [currentUser]);
+
+  const test = (tasks: Tasks[]) => {
+    const results = tasks.reduce((acc: AccInterface, task) => {
+      const date = task.date;
+
+      if (!acc[date]) {
+        acc[date] = 1;
+      } else {
+        acc[date] += 1;
+      }
+
+      return acc;
+    }, {});
+
+    return Object.entries(results).map(([date, count]) => ({
+      date,
+      title: count.toString(),
+    }));
+  };
+
+  const events = test(tasks);
+
+  return (
+    <>
+      <HeadDiv>
+        <h1>Calendar</h1>
+
+        <h4>
+          In this section you can see a general view of the simple tasks in
+          calendar
+        </h4>
+      </HeadDiv>
+
+      {isLoading ? (
+        <Loading $calendar />
+      ) : (
+        <FullCalendarWrapper>
+          <FullCalendar
+            plugins={[dayGridPlugin, interactionPlugin]}
+            events={events}
+            initialView="dayGridMonth"
+            height={700}
+            dateClick={(info) => {
+              handleClick(info.dateStr);
+            }}
+            buttonText={{ today: "Today" }}
+            titleFormat={{
+              year: "numeric",
+              month: `${windowWidth < 480 ? "short" : "long"}`,
+            }}
+          />
+        </FullCalendarWrapper>
+      )}
+    </>
+  );
 };
 
 export default page;

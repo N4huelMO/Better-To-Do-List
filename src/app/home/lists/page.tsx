@@ -111,7 +111,6 @@ const List = styled.div`
   cursor: pointer;
 
   &:hover {
-    transition: 0.2s;
     background: ${(p) => (p.theme.id != Theme.Dark ? "#9eddff" : "#383838")};
   }
 `;

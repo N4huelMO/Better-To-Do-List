@@ -45,7 +45,7 @@ const StyledSvg = styled(BiArrowToLeft)<{ $isOpen: boolean }>`
 
 const Container = styled.div`
   width: 100%;
-  padding: 2rem;
+  padding: 1rem;
 
   @media (min-width: 1200px) {
     padding: 4rem 4rem;

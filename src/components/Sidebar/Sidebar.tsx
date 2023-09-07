@@ -1,5 +1,4 @@
 "use client";
-import { lobster } from "@/app/fonts";
 import Image from "next/image";
 import homeImg from "../../../public/img/HomeImage.svg";
 import SocialLink from "../SocialLink";
@@ -10,6 +9,7 @@ import {
   SidebarContainer,
   SidebarContent,
 } from "./Sidebar.styles";
+
 import { usePathname } from "next/navigation";
 
 const Sidebar = () => {
@@ -32,7 +32,7 @@ const Sidebar = () => {
       {isValidPath && (
         <SidebarContainer>
           <SidebarContent>
-            <H1 className={lobster.className}>Better To-Do List</H1>
+            <H1>Better To-Do List</H1>
             <H2>Keep your mind clear and don't worry about remembering</H2>
           </SidebarContent>
 
