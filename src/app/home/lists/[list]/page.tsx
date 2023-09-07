@@ -4,8 +4,6 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import {
   collection,
-  deleteDoc,
-  deleteField,
   doc,
   onSnapshot,
   query,
@@ -24,6 +22,7 @@ import {
   TbSquareRoundedCheck,
   TbTrash,
 } from "react-icons/tb";
+import { useAppContext } from "@/context/AppProvider";
 
 const H1 = styled.h1`
   font-size: 3rem;
@@ -169,9 +168,10 @@ interface Task {
 }
 
 const page = () => {
+  const { fetchIsLoading, setFetchIsLoading } = useAppContext();
+
   const [data, setData] = useState<List>();
   const [task, setTask] = useState<string>("");
-  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [idTask, setIdTask] = useState<string>("");
 
   const params = useParams();
@@ -260,12 +260,12 @@ const page = () => {
   };
 
   useEffect(() => {
+    setFetchIsLoading(true);
+
     if (currentUser && currentUser.uid) {
       const q = query(collection(db, "Lists"), where("__name__", "==", listId));
 
       const unsubscribe = onSnapshot(q, (querySnapshot) => {
-        setIsLoading(true);
-
         let fetchedList;
 
         querySnapshot.forEach((doc) => {
@@ -280,7 +280,7 @@ const page = () => {
 
         setData(fetchedList);
 
-        setIsLoading(false);
+        setFetchIsLoading(false);
       });
 
       return () => unsubscribe();
@@ -289,7 +289,7 @@ const page = () => {
 
   return (
     <>
-      {isLoading ? (
+      {fetchIsLoading ? (
         <Loading />
       ) : (
         <>

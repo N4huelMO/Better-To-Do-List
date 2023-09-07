@@ -20,6 +20,8 @@ type ContextProps = {
   setAlert: Dispatch<SetStateAction<{ msg: string; error: boolean }>>;
   isLoading: boolean;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
+  fetchIsLoading: boolean;
+  setFetchIsLoading: Dispatch<SetStateAction<boolean>>;
 };
 
 const AppContext = createContext<ContextProps | null>(null);
@@ -37,6 +39,7 @@ const AppProvider = ({ children }: AppProviderProps) => {
     error: false,
   });
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [fetchIsLoading, setFetchIsLoading] = useState<boolean>(true);
 
   const toggleTheme = (e?: string) => {
     if (e) {
@@ -58,6 +61,8 @@ const AppProvider = ({ children }: AppProviderProps) => {
         setAlert,
         isLoading,
         setIsLoading,
+        fetchIsLoading,
+        setFetchIsLoading,
       }}
     >
       {children}

@@ -45,6 +45,7 @@ import {
 } from "./styles";
 
 import { HomeForm } from "@/styles/sharedStyles";
+import { useAppContext } from "@/context/AppProvider";
 
 interface Tasks {
   creator: { id: string; name: string };
@@ -55,6 +56,8 @@ interface Tasks {
 }
 
 const page = () => {
+  const { fetchIsLoading, setFetchIsLoading } = useAppContext();
+
   const defaultDate = new Date();
 
   const defaultValue = `${defaultDate.getFullYear()}-${(
@@ -66,7 +69,6 @@ const page = () => {
   const [task, setTask] = useState<string>("");
   const [tasks, setTasks] = useState<Array<Tasks>>([]);
   const [date, setDate] = useState<string | number>(defaultValue);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [idTask, setIdTask] = useState<string>("");
 
   const minDate = new Date().toISOString().split("T")[0];
@@ -141,6 +143,8 @@ const page = () => {
   };
 
   useEffect(() => {
+    setFetchIsLoading(true);
+
     if (currentUser && currentUser.uid) {
       const q = query(
         collection(db, "simpleTasks"),
@@ -148,8 +152,6 @@ const page = () => {
       );
 
       const unsubscribe = onSnapshot(q, (querySnapshot) => {
-        setIsLoading(true);
-
         const fetchedTasks: Array<Tasks> = [];
 
         querySnapshot.forEach((doc) => {
@@ -168,7 +170,7 @@ const page = () => {
 
         setTasks(fetchedTasks);
 
-        setIsLoading(false);
+        setFetchIsLoading(false);
       });
 
       return () => unsubscribe();
@@ -210,7 +212,7 @@ const page = () => {
 
       <TableContainer>
         <Table>
-          {isLoading ? (
+          {fetchIsLoading ? (
             <Loading />
           ) : tasks.length === 0 ? (
             <NoTasks>You haven't scored any tasks yet!</NoTasks>

@@ -11,6 +11,7 @@ import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { db } from "@/firebase/config";
 import userAuth from "@/helpers/userAuth";
 import Loading from "@/components/Loading";
+import { useAppContext } from "@/context/AppProvider";
 
 const FullCalendarWrapper = styled.div`
   --fc-border-color: ${(p) => (p.theme.id != Theme.Dark ? "#89bde0" : "#fff")};
@@ -64,13 +65,10 @@ interface AccInterface {
 }
 
 const page = () => {
-  const handleClick = (e: any) => {
-    console.log(e);
-  };
+  const { fetchIsLoading, setFetchIsLoading } = useAppContext();
 
   const [windowWidth, setWindowWidth] = useState<number>(0);
   const [tasks, setTasks] = useState<Array<Tasks>>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const { currentUser } = userAuth();
 
@@ -83,6 +81,8 @@ const page = () => {
   }, []);
 
   useEffect(() => {
+    setFetchIsLoading(true);
+
     if (currentUser && currentUser.uid) {
       const q = query(
         collection(db, "simpleTasks"),
@@ -90,8 +90,6 @@ const page = () => {
       );
 
       const unsubscribe = onSnapshot(q, (querySnapshot) => {
-        setIsLoading(true);
-
         const fetchedTasks: Array<Tasks> = [];
 
         querySnapshot.forEach((doc) => {
@@ -106,7 +104,7 @@ const page = () => {
 
         setTasks(fetchedTasks);
 
-        setIsLoading(false);
+        setFetchIsLoading(false);
       });
 
       return () => unsubscribe();
@@ -145,7 +143,7 @@ const page = () => {
         </h4>
       </HeadDiv>
 
-      {isLoading ? (
+      {fetchIsLoading ? (
         <Loading $calendar />
       ) : (
         <FullCalendarWrapper>
@@ -154,9 +152,6 @@ const page = () => {
             events={events}
             initialView="dayGridMonth"
             height={700}
-            dateClick={(info) => {
-              handleClick(info.dateStr);
-            }}
             buttonText={{ today: "Today" }}
             titleFormat={{
               year: "numeric",

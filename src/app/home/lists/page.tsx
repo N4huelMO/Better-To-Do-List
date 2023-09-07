@@ -26,6 +26,7 @@ import {
 import { TbTrash } from "react-icons/tb";
 import Loading from "@/components/Loading";
 import Link from "next/link";
+import { useAppContext } from "@/context/AppProvider";
 
 const AddListInput = styled(Input)`
   width: 100%;
@@ -52,6 +53,7 @@ const Container = styled(ScrollContainer)<{
   justify-content: ${(p) => (p.$noLists ? "center" : "initial")};
   align-items: ${(p) => (p.$noLists ? "center" : "initial")};
   max-height: 560px;
+  height: 560px;
   overflow-y: auto;
   overflow-x: hidden;
   width: 100%;
@@ -175,11 +177,12 @@ interface Lists {
 }
 
 const page = () => {
+  const { fetchIsLoading, setFetchIsLoading } = useAppContext();
+
   const hasEnoughElements = 21;
 
   const [list, setList] = useState<string>("");
   const [lists, setLists] = useState<Array<Lists>>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const { currentUser } = userAuth();
 
@@ -212,6 +215,8 @@ const page = () => {
   };
 
   useEffect(() => {
+    setFetchIsLoading(true);
+
     if (currentUser && currentUser.uid) {
       const q = query(
         collection(db, "Lists"),
@@ -219,8 +224,6 @@ const page = () => {
       );
 
       const unsubscribe = onSnapshot(q, (querySnapshot) => {
-        setIsLoading(true);
-
         const fetchedLists: Array<Lists> = [];
 
         querySnapshot.forEach((doc) => {
@@ -237,7 +240,7 @@ const page = () => {
 
         setLists(fetchedLists);
 
-        setIsLoading(false);
+        setFetchIsLoading(false);
       });
 
       return () => unsubscribe();
@@ -272,8 +275,8 @@ const page = () => {
           $hasScroll={lists.length > hasEnoughElements}
           $noLists={lists.length === 0}
         >
-          <ListsContainer $isLoading={isLoading}>
-            {isLoading ? (
+          <ListsContainer $isLoading={fetchIsLoading}>
+            {fetchIsLoading ? (
               <Loading />
             ) : lists.length === 0 ? (
               <NoLists>No lists added yet</NoLists>
