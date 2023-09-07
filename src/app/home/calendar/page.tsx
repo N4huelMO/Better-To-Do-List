@@ -111,7 +111,7 @@ const page = () => {
     }
   }, [currentUser]);
 
-  const test = (tasks: Tasks[]) => {
+  const countTasksByDate = (tasks: Tasks[]) => {
     const results = tasks.reduce((acc: AccInterface, task) => {
       const date = task.date;
 
@@ -130,7 +130,7 @@ const page = () => {
     }));
   };
 
-  const events = test(tasks);
+  const events = countTasksByDate(tasks);
 
   return (
     <>
