@@ -11,13 +11,8 @@ import {
   ToggleButtonWrapper,
 } from "./PasswordInput.styles";
 
-import { Dispatch, SetStateAction } from "react";
 import { Input } from "@/styles/sharedStyles";
-
-interface PasswordInputProps {
-  setPassword: Dispatch<SetStateAction<string>>;
-  $confirmPassword?: boolean;
-}
+import { PasswordInputProps } from "@/interfaces/interfaces";
 
 const PasswordInput = ({
   setPassword,

@@ -46,17 +46,11 @@ import {
 
 import { HomeForm } from "@/styles/sharedStyles";
 import { useAppContext } from "@/context/AppProvider";
-
-interface Tasks {
-  creator: { id: string; name: string };
-  date: number;
-  complete: string;
-  description: string;
-  id: string;
-}
+import { Tasks } from "@/interfaces/interfaces";
 
 const page = () => {
-  const { fetchIsLoading, setFetchIsLoading } = useAppContext();
+  const { fetchIsLoading, setFetchIsLoading, task, setTask, tasks, setTasks } =
+    useAppContext();
 
   const defaultDate = new Date();
 
@@ -66,8 +60,6 @@ const page = () => {
     .toString()
     .padStart(2, "0")}-${defaultDate.getDate().toString().padStart(2, "0")}`;
 
-  const [task, setTask] = useState<string>("");
-  const [tasks, setTasks] = useState<Array<Tasks>>([]);
   const [date, setDate] = useState<string | number>(defaultValue);
   const [idTask, setIdTask] = useState<string>("");
 
@@ -217,7 +209,7 @@ const page = () => {
           ) : tasks.length === 0 ? (
             <NoTasks>You haven't scored any tasks yet!</NoTasks>
           ) : (
-            tasks.map((task, i) => (
+            tasks.map((task: Tasks, i: number) => (
               <Task key={i}>
                 <TaskContent>
                   <TaskDate>{formatDate(task.date)}</TaskDate>

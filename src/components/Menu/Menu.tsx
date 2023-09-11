@@ -12,13 +12,9 @@ import {
   StyledLink,
   WelcomeDiv,
 } from "./Menu.styles";
+import { MenuProps } from "@/interfaces/interfaces";
 
-interface Props {
-  isOpen: boolean;
-  setIsOpen: Dispatch<SetStateAction<boolean>>;
-}
-
-const Menu = ({ isOpen, setIsOpen }: Props) => {
+const Menu = ({ isOpen, setIsOpen }: MenuProps) => {
   const [userName, setUserName] = useState<string | undefined>("");
 
   const { currentUser } = userAuth();

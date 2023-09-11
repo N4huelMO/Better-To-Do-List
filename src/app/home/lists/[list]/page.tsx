@@ -23,6 +23,8 @@ import {
   TbTrash,
 } from "react-icons/tb";
 import { useAppContext } from "@/context/AppProvider";
+import { NoTasks } from "../../styles";
+import { List, Task } from "@/interfaces/interfaces";
 
 const H1 = styled.h1`
   font-size: 3rem;
@@ -153,25 +155,10 @@ const TaskDescription = styled.p<{ $complete: boolean }>`
   }
 `;
 
-interface List {
-  creator: { id: string; name: string };
-  date: number;
-  id: string;
-  name: string;
-  tasks: Array<Task>;
-}
-
-interface Task {
-  complete: boolean;
-  description: string;
-  id: string;
-}
-
 const page = () => {
-  const { fetchIsLoading, setFetchIsLoading } = useAppContext();
+  const { fetchIsLoading, setFetchIsLoading, task, setTask } = useAppContext();
 
   const [data, setData] = useState<List>();
-  const [task, setTask] = useState<string>("");
   const [idTask, setIdTask] = useState<string>("");
 
   const params = useParams();
@@ -310,7 +297,7 @@ const page = () => {
           <TableContainer>
             <Table>
               {data?.tasks.length === 0 ? (
-                <p>No tasks</p>
+                <NoTasks>You haven't scored any tasks yet!</NoTasks>
               ) : (
                 data?.tasks.map((task) => (
                   <Task key={task.id}>

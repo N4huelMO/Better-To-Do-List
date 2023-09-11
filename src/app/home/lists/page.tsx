@@ -27,6 +27,7 @@ import { TbTrash } from "react-icons/tb";
 import Loading from "@/components/Loading";
 import Link from "next/link";
 import { useAppContext } from "@/context/AppProvider";
+import { Lists } from "@/interfaces/interfaces";
 
 const AddListInput = styled(Input)`
   width: 100%;
@@ -160,21 +161,6 @@ const NoLists = styled.p`
   font-size: 1.5rem;
   font-weight: bold;
 `;
-
-interface Lists {
-  creator: { id: string; name: string };
-  date: number;
-  id: string;
-  name: string;
-  tasks: [
-    {
-      complete: boolean;
-      date: string;
-      description: string;
-      id: string;
-    }
-  ];
-}
 
 const page = () => {
   const { fetchIsLoading, setFetchIsLoading } = useAppContext();

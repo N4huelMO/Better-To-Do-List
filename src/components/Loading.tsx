@@ -1,4 +1,5 @@
 import { Theme } from "@/helpers/constants";
+import { LoadingProps } from "@/interfaces/interfaces";
 import styled, { keyframes } from "styled-components";
 
 const loadingAnimation1 = keyframes`  
@@ -67,7 +68,7 @@ const Loader = styled.div`
   }
 `;
 
-const Loading = ({ $calendar }: any) => {
+const Loading = ({ $calendar }: LoadingProps) => {
   return (
     <LoaderWrapper $calendar={$calendar}>
       <Loader>

@@ -11,13 +11,10 @@ import {
 } from "./Sidebar.styles";
 
 import { usePathname } from "next/navigation";
+import { ValidPaths } from "@/interfaces/interfaces";
 
 const Sidebar = () => {
   const pathname = usePathname();
-
-  interface ValidPaths {
-    [key: string]: boolean;
-  }
 
   const validPaths: ValidPaths = {
     "/": true,

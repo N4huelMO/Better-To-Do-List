@@ -12,6 +12,7 @@ import { db } from "@/firebase/config";
 import userAuth from "@/helpers/userAuth";
 import Loading from "@/components/Loading";
 import { useAppContext } from "@/context/AppProvider";
+import { AccInterface, Tasks } from "@/interfaces/interfaces";
 
 const FullCalendarWrapper = styled.div`
   --fc-border-color: ${(p) => (p.theme.id != Theme.Dark ? "#89bde0" : "#fff")};
@@ -52,23 +53,11 @@ const FullCalendarWrapper = styled.div`
   }
 `;
 
-interface Tasks {
-  creator: { id: string; name: string };
-  date: number;
-  complete: string;
-  description: string;
-  id: string;
-}
-
-interface AccInterface {
-  [date: string]: number;
-}
-
 const page = () => {
-  const { fetchIsLoading, setFetchIsLoading } = useAppContext();
+  const { fetchIsLoading, setFetchIsLoading, tasks, setTasks } =
+    useAppContext();
 
   const [windowWidth, setWindowWidth] = useState<number>(0);
-  const [tasks, setTasks] = useState<Array<Tasks>>([]);
 
   const { currentUser } = userAuth();
 

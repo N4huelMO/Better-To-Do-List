@@ -3,10 +3,6 @@ import styled, { keyframes } from "styled-components";
 import Link from "next/link";
 import { Theme } from "@/helpers/constants";
 
-interface StylesProps {
-  $isOpen: boolean;
-}
-
 const fade = keyframes`
   0%{
     opacity:0;
@@ -22,7 +18,7 @@ const fade = keyframes`
     }
 `;
 
-const Container = styled.div<StylesProps>`
+const Container = styled.div<{ $isOpen: boolean }>`
   display: ${(p) => (p.$isOpen ? "initial" : "none")};
   justify-content: center;
   align-items: center;
@@ -60,7 +56,7 @@ const LinksContainer = styled.div`
   margin: 0 0 2rem 0;
 `;
 
-const StyledLink = styled(Link)<StylesProps>`
+const StyledLink = styled(Link)<{ $isOpen: boolean }>`
   display: flex;
   align-items: center;
   gap: 1rem;

@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Theme } from "@/helpers/constants";
 
 import { BiSolidMoon, BiSolidSun } from "react-icons/bi";
+import { ToggleProps } from "@/interfaces/interfaces";
 
 const Container = styled.div`
   margin: 0 5px;
@@ -60,11 +61,7 @@ const Circle = styled.div`
   }
 `;
 
-interface Props {
-  toggleTheme: (e?: string) => void | (() => {});
-}
-
-function ToggleButton({ toggleTheme }: Props) {
+function ToggleButton({ toggleTheme }: ToggleProps) {
   return (
     <Container>
       <Button

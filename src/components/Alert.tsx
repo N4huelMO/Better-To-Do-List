@@ -1,10 +1,6 @@
+import { AlertProps } from "@/interfaces/interfaces";
 import React from "react";
 import styled from "styled-components";
-
-interface Props {
-  secondary?: boolean;
-  message: { msg: string; error: boolean };
-}
 
 const ContainerAlert = styled.div<{ $secondary?: boolean; $error: boolean }>`
   background: ${(p) => (p.$error ? "#fecaca" : "#a7f3d0")};
@@ -18,7 +14,7 @@ const ContainerAlert = styled.div<{ $secondary?: boolean; $error: boolean }>`
   width: ${(p) => (p.$secondary ? "40%" : "100%")};
 `;
 
-const Alert = ({ message, secondary }: Props) => {
+const Alert = ({ message, secondary }: AlertProps) => {
   const { msg, error } = message;
 
   return (

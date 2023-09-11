@@ -1,5 +1,6 @@
 "use client";
 
+import { Tasks } from "@/interfaces/interfaces";
 import {
   createContext,
   useState,
@@ -22,6 +23,10 @@ type ContextProps = {
   setIsLoading: Dispatch<SetStateAction<boolean>>;
   fetchIsLoading: boolean;
   setFetchIsLoading: Dispatch<SetStateAction<boolean>>;
+  task: string;
+  setTask: Dispatch<SetStateAction<string>>;
+  tasks: Array<Tasks>;
+  setTasks: Dispatch<SetStateAction<Tasks[]>>;
 };
 
 const AppContext = createContext<ContextProps | null>(null);
@@ -40,6 +45,8 @@ const AppProvider = ({ children }: AppProviderProps) => {
   });
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [fetchIsLoading, setFetchIsLoading] = useState<boolean>(true);
+  const [task, setTask] = useState<string>("");
+  const [tasks, setTasks] = useState<Array<Tasks>>([]);
 
   const toggleTheme = (e?: string) => {
     if (e) {
@@ -63,6 +70,10 @@ const AppProvider = ({ children }: AppProviderProps) => {
         setIsLoading,
         fetchIsLoading,
         setFetchIsLoading,
+        task,
+        setTask,
+        tasks,
+        setTasks,
       }}
     >
       {children}
