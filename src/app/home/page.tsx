@@ -53,7 +53,6 @@ const page = () => {
     useAppContext();
 
   const { currentUser } = userAuth();
-  console.log(currentUser);
 
   const defaultDate = new Date();
 
