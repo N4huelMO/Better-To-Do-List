@@ -52,6 +52,9 @@ const page = () => {
   const { fetchIsLoading, setFetchIsLoading, task, setTask, tasks, setTasks } =
     useAppContext();
 
+  const { currentUser } = userAuth();
+  console.log(currentUser);
+
   const defaultDate = new Date();
 
   const defaultValue = `${defaultDate.getFullYear()}-${(
@@ -64,8 +67,6 @@ const page = () => {
   const [idTask, setIdTask] = useState<string>("");
 
   const minDate = new Date().toISOString().split("T")[0];
-
-  const { currentUser } = userAuth();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.id === "task") {
@@ -120,7 +121,7 @@ const page = () => {
 
     const newTask = {
       creator: {
-        id: currentUser.uid,
+        id: currentUser?.uid,
         name: splitName?.[0],
       },
       date,

@@ -179,7 +179,7 @@ const page = () => {
 
     const newList = {
       creator: {
-        id: currentUser.uid,
+        id: currentUser?.uid,
         name: splitName?.[0],
       },
       date: Date.now(),

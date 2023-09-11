@@ -20,7 +20,7 @@ const Menu = ({ isOpen, setIsOpen }: MenuProps) => {
   const { currentUser } = userAuth();
 
   useEffect(() => {
-    const splitName = currentUser.displayName?.split(" ")[0];
+    const splitName = currentUser?.displayName?.split(" ")[0];
 
     setUserName(splitName);
   }, [currentUser]);
