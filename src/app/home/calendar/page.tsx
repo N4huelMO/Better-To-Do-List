@@ -1,57 +1,24 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { HeadDiv } from "../styles";
 
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import styled from "styled-components";
-import { Theme } from "@/helpers/constants";
+
 import { collection, onSnapshot, query, where } from "firebase/firestore";
+
 import { db } from "@/firebase/config";
+
 import userAuth from "@/helpers/userAuth";
+
 import Loading from "@/components/Loading";
+
 import { useAppContext } from "@/context/AppProvider";
+
 import { AccInterface, Tasks } from "@/interfaces/interfaces";
 
-const FullCalendarWrapper = styled.div`
-  --fc-border-color: ${(p) => (p.theme.id != Theme.Dark ? "#89bde0" : "#fff")};
-
-  --fc-today-bg-color: ${(p) =>
-    p.theme.id != Theme.Dark ? "#e0f2fe" : "#404040"};
-
-  --fc-button-bg-color: ${(p) =>
-    p.theme.id != Theme.Dark ? "#0284c7" : "#525252"};
-
-  --fc-button-hover-bg-color: ${(p) =>
-    p.theme.id != Theme.Dark ? "#0369a1" : "#404040"};
-
-  --fc-button-border-color: ${(p) =>
-    p.theme.id != Theme.Dark ? "#082f49" : "#949494"};
-
-  --fc-button-hover-border-color: ${(p) =>
-    p.theme.id != Theme.Dark ? "#082f49" : "#949494"};
-
-  --fc-button-active-bg-color: ${(p) =>
-    p.theme.id != Theme.Dark ? "#082f49" : "#949494"};
-
-  --fc-button-active-border-color: ${(p) =>
-    p.theme.id != Theme.Dark ? "#082f49" : "#949494"};
-
-  --fc-event-bg-color: ${(p) =>
-    p.theme.id != Theme.Dark ? "#9cd6fd" : "#303030"};
-
-  --fc-event-border-color: ${(p) =>
-    p.theme.id != Theme.Dark ? "#4a81a7" : "#949494"};
-
-  --fc-event-text-color: ${(p) => p.theme.bodyFontColor};
-
-  .fc-daygrid-block-event .fc-event-time,
-  .fc-daygrid-block-event .fc-event-title {
-    display: flex;
-    justify-content: center;
-  }
-`;
+import { FullCalendarWrapper } from "./styles";
+import { HeadDiv } from "../styles";
 
 const page = () => {
   const { fetchIsLoading, setFetchIsLoading, tasks, setTasks } =

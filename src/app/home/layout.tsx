@@ -1,10 +1,13 @@
 "use client";
 
+import React from "react";
+
 import { useAppContext } from "@/context/AppProvider";
 
-import React, { useState, useEffect } from "react";
+import userAuth from "@/helpers/userAuth";
 
 import Menu from "@/components/Menu/Menu";
+
 import ToggleButton from "@/components/Toggle";
 
 import {
@@ -13,7 +16,6 @@ import {
   SidebarContainerHome,
   StyledSvg,
 } from "./styles";
-import userAuth from "@/helpers/userAuth";
 
 const layout = ({ children }: { children: React.ReactNode }) => {
   const { isOpen, setIsOpen } = useAppContext();

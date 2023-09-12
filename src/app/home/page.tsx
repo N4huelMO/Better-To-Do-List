@@ -45,7 +45,9 @@ import {
 } from "./styles";
 
 import { HomeForm } from "@/styles/sharedStyles";
+
 import { useAppContext } from "@/context/AppProvider";
+
 import { Tasks } from "@/interfaces/interfaces";
 
 const page = () => {

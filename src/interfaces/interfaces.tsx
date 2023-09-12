@@ -23,7 +23,7 @@ export interface Lists {
   ];
 }
 
-export interface Task {
+export interface ListTask {
   complete: boolean;
   description: string;
   id: string;
@@ -34,7 +34,7 @@ export interface List {
   date: number;
   id: string;
   name: string;
-  tasks: Array<Task>;
+  tasks: Array<ListTask>;
 }
 
 export interface AccInterface {
