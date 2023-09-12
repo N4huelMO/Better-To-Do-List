@@ -58,7 +58,3 @@ export interface AlertProps {
 export interface LoadingProps {
   $calendar?: boolean;
 }
-
-export interface ToggleProps {
-  toggleTheme: (e?: string) => void | (() => {});
-}

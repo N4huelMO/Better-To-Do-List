@@ -31,6 +31,7 @@ const Hr = styled.hr`
     top: -14px;
     padding: 0 16px;
     background: ${(p) => p.theme.bodyBackgroundColor};
+    transition: 0.2s;
   }
 `;
 

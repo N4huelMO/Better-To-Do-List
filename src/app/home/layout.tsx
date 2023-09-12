@@ -15,10 +15,8 @@ import {
 } from "./styles";
 import userAuth from "@/helpers/userAuth";
 
-import Loading from "@/components/Loading";
-
 const layout = ({ children }: { children: React.ReactNode }) => {
-  const { toggleTheme, isOpen, setIsOpen } = useAppContext();
+  const { isOpen, setIsOpen } = useAppContext();
 
   const { currentUser } = userAuth();
 
@@ -32,7 +30,7 @@ const layout = ({ children }: { children: React.ReactNode }) => {
     <>
       <SidebarContainerHome>
         <HeaderSidebar>
-          <ToggleButton toggleTheme={toggleTheme} />
+          <ToggleButton />
 
           <StyledSvg
             size={30}

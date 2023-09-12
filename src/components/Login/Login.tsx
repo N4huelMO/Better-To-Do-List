@@ -32,6 +32,7 @@ import Alert from "../Alert";
 import Loading from "../Loading";
 import { useRouter } from "next/navigation";
 import { useAppContext } from "@/context/AppProvider";
+import ToggleButtonMenu from "../ToggleMenu";
 
 const Login = () => {
   const {
@@ -92,7 +93,18 @@ const Login = () => {
   return (
     <FormContainer>
       <FormContent>
-        <h3>Login to Better To-Do List</h3>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            margin: "1rem 0 1.5rem 0",
+          }}
+        >
+          <h3>Login to Better To-Do List</h3>
+
+          <ToggleButtonMenu />
+        </div>
 
         <LoginRegisterForm
           onSubmit={handleSubmit}

@@ -13,7 +13,7 @@ const SocialMedia = styled.div`
   }
 
   svg {
-    transition: 0.2s ease;
+    transition: 0.05s;
     height: 50px;
     width: 50px;
   }

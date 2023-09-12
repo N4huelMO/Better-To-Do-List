@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Theme } from "@/helpers/constants";
 
 import { BiSolidMoon, BiSolidSun } from "react-icons/bi";
-import { ToggleProps } from "@/interfaces/interfaces";
+import { useAppContext } from "@/context/AppProvider";
 
 const Container = styled.div`
   margin: 0 5px;
@@ -13,7 +13,6 @@ const Container = styled.div`
   background: ${(p) => (p.theme.id != Theme.Dark ? "#e0f2fe" : "#404040")};
   display: flex;
   align-items: center;
-  display: flex;
   gap: 1.5rem;
 `;
 
@@ -61,7 +60,9 @@ const Circle = styled.div`
   }
 `;
 
-function ToggleButton({ toggleTheme }: ToggleProps) {
+function ToggleButton() {
+  const { toggleTheme } = useAppContext();
+
   return (
     <Container>
       <Button
