@@ -31,6 +31,7 @@ const LoaderWrapper = styled.div<{ $calendar?: boolean }>`
   justify-content: center;
   align-items: center;
   height: ${(p) => (p.$calendar ? "80%" : "100%")};
+  width: 100%;
 `;
 
 const Loader = styled.div`

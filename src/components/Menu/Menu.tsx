@@ -12,10 +12,12 @@ import {
   StyledLink,
   WelcomeDiv,
 } from "./Menu.styles";
-import { MenuProps } from "@/interfaces/interfaces";
+import { useAppContext } from "@/context/AppProvider";
 
-const Menu = ({ isOpen, setIsOpen }: MenuProps) => {
+const Menu = () => {
   const [userName, setUserName] = useState<string | undefined>("");
+
+  const { isOpen, setIsOpen } = useAppContext();
 
   const { currentUser } = userAuth();
 

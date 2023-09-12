@@ -62,8 +62,3 @@ export interface LoadingProps {
 export interface ToggleProps {
   toggleTheme: (e?: string) => void | (() => {});
 }
-
-export interface MenuProps {
-  isOpen: boolean;
-  setIsOpen: Dispatch<SetStateAction<boolean>>;
-}

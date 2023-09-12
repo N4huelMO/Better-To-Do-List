@@ -19,6 +19,8 @@ type ContextProps = {
   setPassword: Dispatch<SetStateAction<string>>;
   alert: { msg: string; error: boolean };
   setAlert: Dispatch<SetStateAction<{ msg: string; error: boolean }>>;
+  isOpen: boolean;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
   isLoading: boolean;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
   fetchIsLoading: boolean;
@@ -43,6 +45,7 @@ const AppProvider = ({ children }: AppProviderProps) => {
     msg: "",
     error: false,
   });
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [fetchIsLoading, setFetchIsLoading] = useState<boolean>(true);
   const [task, setTask] = useState<string>("");
@@ -66,6 +69,8 @@ const AppProvider = ({ children }: AppProviderProps) => {
         setPassword,
         alert,
         setAlert,
+        isOpen,
+        setIsOpen,
         isLoading,
         setIsLoading,
         fetchIsLoading,
