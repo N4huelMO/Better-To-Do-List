@@ -65,6 +65,8 @@ const page = () => {
   const [date, setDate] = useState<string | number>(defaultValue);
   const [idTask, setIdTask] = useState<string>("");
 
+  const taskCompleted = tasks.filter((task) => !task.complete);
+
   const minDate = new Date().toISOString().split("T")[0];
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -199,7 +201,7 @@ const page = () => {
           <AddTaskButton>{idTask ? "edit task" : "add new task"}</AddTaskButton>
         </InputButtonContainer>
 
-        <TaskRemaining>Task remaining: {tasks.length}</TaskRemaining>
+        <TaskRemaining>Tasks remaining: {taskCompleted.length}</TaskRemaining>
       </HomeForm>
 
       <TableContainer>

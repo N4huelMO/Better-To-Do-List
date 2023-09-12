@@ -127,7 +127,7 @@ const HomeForm = styled.form`
   display: flex;
   align-items: center;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
   margin-bottom: 1.5rem;
   width: 100%;
 
