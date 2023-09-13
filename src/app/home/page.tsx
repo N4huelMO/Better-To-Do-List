@@ -32,7 +32,6 @@ import {
   AddTaskInput,
   HeadDiv,
   InputButtonContainer,
-  NoTasks,
   Table,
   TableContainer,
   Task,
@@ -41,10 +40,14 @@ import {
   TaskContent,
   TaskDate,
   TaskDescription,
-  TaskRemaining,
 } from "./styles";
 
-import { HomeForm } from "@/styles/sharedStyles";
+import {
+  CancelButton,
+  HomeForm,
+  NoData,
+  TaskRemaining,
+} from "@/styles/sharedStyles";
 
 import { useAppContext } from "@/context/AppProvider";
 
@@ -77,6 +80,12 @@ const page = () => {
     } else if (e.target.id === "date") {
       setDate(e.target.value);
     }
+  };
+
+  const handleCancel = () => {
+    setIdTask("");
+    setTask("");
+    setDate(defaultValue);
   };
 
   const handleDelete = async (id: string) => {
@@ -203,7 +212,11 @@ const page = () => {
           <AddTaskButton>{idTask ? "edit task" : "add new task"}</AddTaskButton>
         </InputButtonContainer>
 
-        <TaskRemaining>Tasks remaining: {taskCompleted.length}</TaskRemaining>
+        {idTask ? (
+          <CancelButton onClick={handleCancel}>Cancel</CancelButton>
+        ) : (
+          <TaskRemaining>Tasks remaining: {taskCompleted.length}</TaskRemaining>
+        )}
       </HomeForm>
 
       <TableContainer>
@@ -211,7 +224,7 @@ const page = () => {
           {fetchIsLoading ? (
             <Loading />
           ) : tasks.length === 0 ? (
-            <NoTasks>You haven't scored any tasks yet!</NoTasks>
+            <NoData>You haven't scored any tasks yet!</NoData>
           ) : (
             tasks.map((task: Tasks, i: number) => (
               <Task key={i}>

@@ -133,16 +133,6 @@ const ListButton = styled.button`
   }
 `;
 
-const NoLists = styled.p`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  margin: 3rem 0;
-  font-size: 1.5rem;
-  font-weight: bold;
-`;
-
 export {
   AddListInput,
   AddListButton,
@@ -151,5 +141,4 @@ export {
   List,
   ListLink,
   ListButton,
-  NoLists,
 };

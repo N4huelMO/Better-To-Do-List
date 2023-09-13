@@ -136,6 +136,34 @@ const HomeForm = styled.form`
   }
 `;
 
+const CancelButton = styled.button`
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: #e47676;
+  color: #fff;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.2s;
+
+  &:hover {
+    background: #dd5c5c;
+  }
+`;
+
+const TaskRemaining = styled.p`
+  font-weight: bold;
+`;
+
+const NoData = styled.p`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 3rem 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+`;
+
 export {
   Container,
   Input,
@@ -148,4 +176,7 @@ export {
   GoogleSignInButton,
   SignUpSignIn,
   HomeForm,
+  CancelButton,
+  TaskRemaining,
+  NoData,
 };

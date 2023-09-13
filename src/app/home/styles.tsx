@@ -96,13 +96,9 @@ const AddTaskButton = styled(ButtonForm)`
   width: 50%;
 
   @media (min-width: 992px) {
-    width: 200px;
+    width: 170px;
     font-size: initial;
   }
-`;
-
-const TaskRemaining = styled.p`
-  font-weight: bold;
 `;
 
 const TableContainer = styled.div`
@@ -224,15 +220,6 @@ const TaskDescription = styled.p<{ $complete: string }>`
   }
 `;
 
-const NoTasks = styled.p`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 3rem 0;
-  font-size: 1.5rem;
-  font-weight: bold;
-`;
-
 export {
   SidebarContainerHome,
   HeaderSidebar,
@@ -243,7 +230,6 @@ export {
   InputButtonContainer,
   AddTaskDateInput,
   AddTaskButton,
-  TaskRemaining,
   TableContainer,
   Table,
   Task,
@@ -252,5 +238,4 @@ export {
   TaskButton,
   TaskDate,
   TaskDescription,
-  NoTasks,
 };

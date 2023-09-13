@@ -42,9 +42,12 @@ import {
   TaskDescription,
 } from "./styles";
 
-import { HomeForm } from "@/styles/sharedStyles";
-
-import { NoTasks } from "../../styles";
+import {
+  CancelButton,
+  HomeForm,
+  NoData,
+  TaskRemaining,
+} from "@/styles/sharedStyles";
 
 const page = () => {
   const { fetchIsLoading, setFetchIsLoading, task, setTask } = useAppContext();
@@ -62,8 +65,15 @@ const page = () => {
 
   const listTasksRef = data?.tasks;
 
+  const taskCompleted = data?.tasks.filter((task) => !task.complete);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTask(e.target.value.trimStart());
+  };
+
+  const handleCancel = () => {
+    setIdTask("");
+    setTask("");
   };
 
   const handleDelete = async (id: string) => {
@@ -183,12 +193,20 @@ const page = () => {
             <AddTaskButton>
               {idTask ? "edit task" : "add new task"}
             </AddTaskButton>
+
+            {idTask ? (
+              <CancelButton onClick={handleCancel}>Cancel</CancelButton>
+            ) : (
+              <TaskRemaining>
+                Tasks remaining: {taskCompleted?.length}
+              </TaskRemaining>
+            )}
           </HomeForm>
 
           <TableContainer>
             <Table>
               {data?.tasks.length === 0 ? (
-                <NoTasks>You haven't scored any tasks yet!</NoTasks>
+                <NoData>You haven't scored any tasks yet!</NoData>
               ) : (
                 data?.tasks.map((task) => (
                   <Task key={task.id}>

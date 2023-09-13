@@ -2,7 +2,7 @@
 
 import { StyleSheetManager } from "styled-components";
 import { HeadDiv } from "../styles";
-import { HomeForm } from "@/styles/sharedStyles";
+import { HomeForm, NoData } from "@/styles/sharedStyles";
 
 import { ChangeEvent, useEffect, useState } from "react";
 
@@ -36,7 +36,6 @@ import {
   ListButton,
   ListLink,
   ListsContainer,
-  NoLists,
 } from "./styles";
 
 const page = () => {
@@ -142,7 +141,7 @@ const page = () => {
             {fetchIsLoading ? (
               <Loading />
             ) : lists.length === 0 ? (
-              <NoLists>No lists added yet</NoLists>
+              <NoData>No lists added yet</NoData>
             ) : (
               lists.map((list: Lists, i: number) => (
                 <List key={i}>
