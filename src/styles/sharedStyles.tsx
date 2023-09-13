@@ -47,20 +47,12 @@ const FormContainer = styled.div`
 `;
 
 const FormContent = styled.div`
-  padding: 1rem 2rem;
+  padding: 0.5rem 2rem;
   border-radius: 1rem;
   width: 500px;
 
-  h3 {
-    font-size: 1.3rem;
-  }
-
   @media (min-width: 992px) {
     padding: 1rem 3rem;
-
-    h3 {
-      font-size: 1.5rem;
-    }
   }
 `;
 
@@ -70,7 +62,7 @@ const LoginRegisterForm = styled.form`
 
 const FormFields = styled.fieldset`
   border: none;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 `;
 
 const FormLabels = styled.label`
@@ -164,6 +156,23 @@ const NoData = styled.p`
   font-weight: bold;
 `;
 
+const FormHeader = styled.header`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 1rem 0 1.5rem 0;
+
+  h3 {
+    font-size: 1.15rem;
+  }
+
+  @media (min-width: 992px) {
+    h3 {
+      font-size: 1.5rem;
+    }
+  }
+`;
+
 export {
   Container,
   Input,
@@ -179,4 +188,5 @@ export {
   CancelButton,
   TaskRemaining,
   NoData,
+  FormHeader,
 };

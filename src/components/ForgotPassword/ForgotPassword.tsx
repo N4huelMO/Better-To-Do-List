@@ -6,6 +6,7 @@ import {
   FormFields,
   FormLabels,
   Input,
+  FormHeader,
 } from "@/styles/sharedStyles";
 import React, { ChangeEvent } from "react";
 import { poppins } from "@/app/fonts";
@@ -67,7 +68,9 @@ const ForgotPassword = () => {
     <FormContainer>
       <FormContent>
         <LoginRegisterForm onSubmit={handleSubmit}>
-          <h3>Forgot Password</h3>
+          <FormHeader>
+            <h3>Forgot Password</h3>
+          </FormHeader>
 
           <FormFields>
             <FormLabels htmlFor="email">E-mail</FormLabels>

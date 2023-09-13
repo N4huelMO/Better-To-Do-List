@@ -18,6 +18,7 @@ import {
   FormLabels,
   Input,
   SignUpSignIn,
+  FormHeader,
 } from "@/styles/sharedStyles";
 import Alert from "../Alert";
 import styled from "styled-components";
@@ -27,10 +28,19 @@ import { useAppContext } from "@/context/AppProvider";
 
 const FieldsWrapper = styled.div`
   display: flex;
-  gap: 1rem;
+  flex-direction: column;
 
   fieldset:first-child {
-    width: 40%;
+    width: 100%;
+
+    @media (min-width: 992px) {
+      width: 40%;
+    }
+  }
+
+  @media (min-width: 992px) {
+    flex-direction: row;
+    gap: 1rem;
   }
 `;
 
@@ -125,7 +135,9 @@ const Login = () => {
   return (
     <FormContainer>
       <FormContent>
-        <h3>Register to Better To-Do List</h3>
+        <FormHeader>
+          <h3>Register to Better To-Do List</h3>
+        </FormHeader>
 
         <LoginRegisterForm
           onSubmit={handleSubmit}

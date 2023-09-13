@@ -19,6 +19,7 @@ import {
   Input,
   SignUpSignIn,
   GoogleSignInButton,
+  FormHeader,
 } from "@/styles/sharedStyles";
 
 import {
@@ -93,18 +94,11 @@ const Login = () => {
   return (
     <FormContainer>
       <FormContent>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            margin: "1rem 0 1.5rem 0",
-          }}
-        >
+        <FormHeader>
           <h3>Login to Better To-Do List</h3>
 
           <ToggleButtonMenu />
-        </div>
+        </FormHeader>
 
         <LoginRegisterForm
           onSubmit={handleSubmit}
