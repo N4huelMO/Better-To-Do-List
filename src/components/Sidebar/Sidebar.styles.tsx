@@ -1,7 +1,5 @@
 "use client";
 
-import { lobster } from "@/app/fonts";
-import { Theme } from "@/helpers/constants";
 import styled from "styled-components";
 
 const SidebarContainer = styled.aside`
@@ -10,7 +8,7 @@ const SidebarContainer = styled.aside`
   justify-content: center;
   align-items: center;
   text-align: center;
-  background: ${(p) => (p.theme.id != Theme.Dark ? "#bae6fd" : "#262626")};
+  background: ${(p) => p.theme.sidebar.background};
 
   @media (min-width: 992px) {
     height: 100%;

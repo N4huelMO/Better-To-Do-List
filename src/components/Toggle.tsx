@@ -8,9 +8,9 @@ const Container = styled.div`
   margin: 0 5px;
   width: 220px;
   height: 50px;
-  border: 2px solid ${(p) => (p.theme.id != Theme.Dark ? "#9ecce5" : "#525252")};
+  border: 2px solid ${(p) => p.theme.toggleButton.primary};
   border-radius: 0.5rem;
-  background: ${(p) => (p.theme.id != Theme.Dark ? "#e0f2fe" : "#404040")};
+  background: ${(p) => p.theme.toggleButton.background};
   display: flex;
   align-items: center;
   gap: 1.5rem;
@@ -46,7 +46,7 @@ const Circle = styled.div`
   width: 100px;
   height: 40px;
   border-radius: 0.5rem;
-  background: ${(p) => (p.theme.id != Theme.Dark ? "#b4ddf3" : "#525252")};
+  background: ${(p) => p.theme.toggleButton.primary};
   margin: 0 3px;
   transition: 0.2s;
   transform: ${(p) =>

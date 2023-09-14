@@ -30,22 +30,22 @@ import {
   AddTaskButton,
   AddTaskDateInput,
   AddTaskInput,
-  HeadDiv,
   InputButtonContainer,
+  TaskDate,
+} from "./styles";
+
+import {
+  CancelButton,
+  HeadDiv,
+  HomeForm,
+  NoData,
   Table,
   TableContainer,
   Task,
   TaskButton,
   TaskButtonsDiv,
   TaskContent,
-  TaskDate,
   TaskDescription,
-} from "./styles";
-
-import {
-  CancelButton,
-  HomeForm,
-  NoData,
   TaskRemaining,
 } from "@/styles/sharedStyles";
 

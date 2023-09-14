@@ -29,10 +29,12 @@ import {
   where,
 } from "firebase/firestore";
 
+import { AddTaskButton, AddTaskInput, H1 } from "./styles";
+
 import {
-  AddTaskButton,
-  AddTaskInput,
-  H1,
+  CancelButton,
+  HomeForm,
+  NoData,
   Table,
   TableContainer,
   Task,
@@ -40,12 +42,6 @@ import {
   TaskButtonsDiv,
   TaskContent,
   TaskDescription,
-} from "./styles";
-
-import {
-  CancelButton,
-  HomeForm,
-  NoData,
   TaskRemaining,
 } from "@/styles/sharedStyles";
 

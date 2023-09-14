@@ -1,4 +1,3 @@
-import { Theme } from "@/helpers/constants";
 import styled from "styled-components";
 import { BiArrowToLeft } from "react-icons/bi";
 import { ButtonForm, Input } from "@/styles/sharedStyles";
@@ -9,7 +8,7 @@ const SidebarContainerHome = styled.aside`
   justify-content: center;
   align-items: center;
   text-align: center;
-  background: ${(p) => (p.theme.id != Theme.Dark ? "#bae6fd" : "#262626")};
+  background: ${(p) => p.theme.sidebar.background};
   width: 100%;
 
   @media (min-width: 992px) {
@@ -52,20 +51,6 @@ const Container = styled.div`
   }
 `;
 
-const HeadDiv = styled.div`
-  margin-bottom: 2rem;
-
-  h1 {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
-  }
-
-  h4 {
-    font-size: 1rem;
-    color: ${(p) => (p.theme.id != Theme.Dark ? "#4d718a" : "#949494")};
-  }
-`;
-
 const AddTaskInput = styled(Input)`
   width: 100%;
 
@@ -86,7 +71,7 @@ const AddTaskDateInput = styled(Input)`
 
   &::-webkit-calendar-picker-indicator {
     transition: 0.2s;
-    filter: ${(p) => (p.theme.id != Theme.Dark ? "" : "invert(1)")};
+    filter: ${(p) => p.theme.home.filter};
   }
 `;
 
@@ -101,98 +86,6 @@ const AddTaskButton = styled(ButtonForm)`
   }
 `;
 
-const TableContainer = styled.div`
-  max-height: 600px;
-  overflow: auto;
-  padding-right: 0.5rem;
-
-  &::-webkit-scrollbar {
-    width: 8px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: ${(p) =>
-      p.theme.id != Theme.Dark ? "#5d9ac56c" : "#9494946c"};
-    border-radius: 100px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: ${(p) => (p.theme.id != Theme.Dark ? "#5d9ac5" : "#949494")};
-    border-radius: 100px;
-  }
-`;
-
-const Table = styled.div`
-  width: 100%;
-  border: 3px solid ${(p) => (p.theme.id != Theme.Dark ? "#5d9ac5" : "#949494")};
-  border-radius: 0.5rem;
-`;
-
-const Task = styled.div`
-  display: flex;
-  align-items: center;
-  border-bottom: 2px solid
-    ${(p) => (p.theme.id != Theme.Dark ? "#5d9ac5" : "#949494")};
-  overflow-wrap: break-word;
-
-  &:first-child {
-    border-top-left-radius: 0.3rem;
-    border-top-right-radius: 0.3rem;
-  }
-
-  &:last-child {
-    border-bottom-left-radius: 0.3rem;
-    border-bottom-right-radius: 0.3rem;
-    border-bottom: none;
-  }
-`;
-
-const TaskContent = styled.div`
-  display: flex;
-  gap: 0.5rem;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  width: 100%;
-  padding: 0.5rem 1rem;
-
-  @media (min-width: 992px) {
-    flex-direction: row;
-    justify-content: initial;
-    text-align: initial;
-    gap: 1rem;
-  }
-`;
-
-const TaskButtonsDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 0.5rem 1rem 0.5rem 0;
-  gap: 0.5rem;
-  border-left: 2px solid
-    ${(p) => (p.theme.id != Theme.Dark ? "#5d9ac5" : "#949494")};
-  padding-left: 0.5rem;
-
-  @media (min-width: 992px) {
-    flex-direction: row;
-    margin: 0;
-    margin-right: 1rem;
-    gap: 1rem;
-  }
-`;
-const TaskButton = styled.button`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  color: ${(p) => p.theme.bodyFontColor};
-`;
-
 const TaskDate = styled.p`
   word-break: normal;
   width: 5.4rem;
@@ -202,21 +95,8 @@ const TaskDate = styled.p`
   @media (min-width: 992px) {
     text-align: left;
     font-size: 1rem;
-    border-right: 2px solid
-      ${(p) => (p.theme.id != Theme.Dark ? "#5d9ac5" : "#949494")};
+    border-right: 2px solid ${(p) => p.theme.home.primary};
     padding-right: 0.5rem;
-  }
-`;
-
-const TaskDescription = styled.p<{ $complete: string }>`
-  font-weight: ${(p) => (p.$complete ? "lighter" : "bold")};
-  padding: 0 1rem;
-  font-size: 1.2rem;
-  text-decoration: ${(p) => (p.$complete ? "line-through" : "none")};
-  text-decoration-thickness: 0.15rem;
-
-  @media (min-width: 992px) {
-    padding: 0;
   }
 `;
 
@@ -224,18 +104,10 @@ export {
   SidebarContainerHome,
   HeaderSidebar,
   StyledSvg,
-  HeadDiv,
   Container,
   AddTaskInput,
   InputButtonContainer,
   AddTaskDateInput,
   AddTaskButton,
-  TableContainer,
-  Table,
-  Task,
-  TaskContent,
-  TaskButtonsDiv,
-  TaskButton,
   TaskDate,
-  TaskDescription,
 };

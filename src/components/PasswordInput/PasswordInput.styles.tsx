@@ -1,4 +1,3 @@
-import { Theme } from "@/helpers/constants";
 import styled from "styled-components";
 
 const PasswordInputWrapper = styled.div`
@@ -27,7 +26,7 @@ const ToggleButton = styled.button`
   padding: 0.5rem;
 
   &:hover {
-    background: ${(p) => (p.theme.id != Theme.Dark ? "#bae6fd" : "#525252")};
+    background: ${(p) => p.theme.passwordInput.backgroundHover};
   }
 `;
 

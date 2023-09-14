@@ -18,7 +18,7 @@ import { useAppContext } from "@/context/AppProvider";
 import { AccInterface, Tasks } from "@/interfaces/interfaces";
 
 import { FullCalendarWrapper } from "./styles";
-import { HeadDiv } from "../styles";
+import { HeadDiv } from "@/styles/sharedStyles";
 
 const page = () => {
   const { fetchIsLoading, setFetchIsLoading, tasks, setTasks } =

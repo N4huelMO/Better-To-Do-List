@@ -1,8 +1,8 @@
 "use client";
 
 import { StyleSheetManager } from "styled-components";
-import { HeadDiv } from "../styles";
-import { HomeForm, NoData } from "@/styles/sharedStyles";
+
+import { HeadDiv, HomeForm, NoData } from "@/styles/sharedStyles";
 
 import { ChangeEvent, useEffect, useState } from "react";
 

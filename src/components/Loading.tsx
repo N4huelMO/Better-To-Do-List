@@ -1,4 +1,3 @@
-import { Theme } from "@/helpers/constants";
 import { LoadingProps } from "@/interfaces/interfaces";
 import styled, { keyframes } from "styled-components";
 
@@ -47,7 +46,7 @@ const Loader = styled.div`
     width: 13px;
     height: 13px;
     border-radius: 50%;
-    background: ${(p) => (p.theme.id != Theme.Dark ? "#075985" : "#404040")};
+    background: ${(p) => p.theme.loading.background};
     animation-timing-function: cubic-bezier(0, 1, 1, 0);
   }
 

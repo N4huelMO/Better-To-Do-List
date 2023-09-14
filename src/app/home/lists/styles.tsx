@@ -54,13 +54,12 @@ const Container = styled(ScrollContainer)<{
   }
 
   &::-webkit-scrollbar-track {
-    background: ${(p) =>
-      p.theme.id != Theme.Dark ? "#5d9ac56c" : "#9494946c"};
+    background: ${(p) => p.theme.home.primaryTransparent};
     border-radius: 100px;
   }
 
   &::-webkit-scrollbar-thumb {
-    background: ${(p) => (p.theme.id != Theme.Dark ? "#5d9ac5" : "#949494")};
+    background: ${(p) => p.theme.home.primary};
     border-radius: 100px;
   }
 `;
@@ -90,12 +89,12 @@ const List = styled.div`
   width: 100%;
   border-radius: 0.5rem;
   overflow-wrap: break-word;
-  border: 3px solid ${(p) => (p.theme.id != Theme.Dark ? "#5d9ac5" : "#949494")};
-  background: ${(p) => (p.theme.id != Theme.Dark ? "#bae6fd" : "#262626")};
+  border: 3px solid ${(p) => p.theme.home.primary};
+  background: ${(p) => p.theme.home.lists.background};
   cursor: pointer;
 
   &:hover {
-    background: ${(p) => (p.theme.id != Theme.Dark ? "#9eddff" : "#383838")};
+    background: ${(p) => p.theme.home.lists.backgroundHover};
   }
 `;
 
@@ -122,14 +121,13 @@ const ListButton = styled.button`
   border: none;
   cursor: pointer;
   color: ${(p) => p.theme.bodyFontColor};
-  transition: 0.2s;
   height: 100%;
   padding: 0 1rem;
   border-top-right-radius: 0.3rem;
   border-bottom-right-radius: 0.3rem;
 
   &:hover {
-    background: ${(p) => (p.theme.id != Theme.Dark ? "#4290b9" : "#262626")};
+    background: ${(p) => p.theme.home.lists.button.backgroundHover};
   }
 `;
 

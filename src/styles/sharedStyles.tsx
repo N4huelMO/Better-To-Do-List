@@ -1,5 +1,4 @@
 "use client";
-import { Theme } from "@/helpers/constants";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -18,19 +17,15 @@ const Input = styled.input`
   outline: none;
   border-radius: 0.5rem;
   border: 2px solid transparent;
-  background: ${(p) => (p.theme.id != Theme.Dark ? "#e0f2fe" : "#404040")};
+  background: ${(p) => p.theme.input.background};
   color: ${(p) => p.theme.bodyFontColor};
   width: 100%;
-  transition: 0.3s ease;
+  transition: 0.2s ease;
 
   &:hover,
   &:focus {
-    box-shadow: ${(p) =>
-      p.theme.id != Theme.Dark
-        ? " rgba(0, 0, 0, 0.1) 0px 0px 5px 0px,  rgba(0, 0, 0, 0.1) 0px 0px 1px 0px"
-        : "rgb(54, 54, 54) 0px 0px 5px 0px, rgb(54, 54, 54) 0px 0px 1px 0px"};
-    border: 2px solid
-      ${(p) => (p.theme.id != Theme.Dark ? "#bae6fd" : "#737373")};
+    box-shadow: ${(p) => p.theme.input.boxShadow};
+    border: 2px solid ${(p) => p.theme.input.border};
   }
 `;
 
@@ -78,22 +73,22 @@ const ButtonForm = styled.button`
   border-radius: 0.5rem;
   border: transparent;
   text-transform: uppercase;
-  background: ${(p) => (p.theme.id != Theme.Dark ? "#0284c7" : "#525252")};
+  background: ${(p) => p.theme.button.background};
   color: white;
   font-weight: bold;
   font-size: 1rem;
   cursor: pointer;
-  transition: 0.3s ease;
+  transition: 0.1s;
 
   &:hover {
-    background: ${(p) => (p.theme.id != Theme.Dark ? "#0369a1" : "#404040")};
+    background: ${(p) => p.theme.button.backgroundHover};
   }
 `;
 const GoogleSignInButton = styled(ButtonForm)`
   margin-top: 0.5rem;
   padding: 0.55rem 0;
-  border: 2px solid ${(p) => (p.theme.id != Theme.Dark ? "#0369a1" : "#262626")};
-  background: ${(p) => (p.theme.id != Theme.Dark ? "#e0f2fe" : "#525252")};
+  border: 2px solid ${(p) => p.theme.googleButton.border};
+  background: ${(p) => p.theme.googleButton.background};
   color: ${(p) => p.theme.bodyFontColor};
   display: flex;
   justify-content: center;
@@ -101,7 +96,7 @@ const GoogleSignInButton = styled(ButtonForm)`
   gap: 0.5rem;
 
   &:hover {
-    background: ${(p) => (p.theme.id != Theme.Dark ? "#bae6fd" : "#404040")};
+    background: ${(p) => p.theme.googleButton.backgroundHover};
   }
 `;
 
@@ -173,6 +168,122 @@ const FormHeader = styled.header`
   }
 `;
 
+const HeadDiv = styled.div`
+  margin-bottom: 2rem;
+
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  h4 {
+    font-size: 1rem;
+    color: ${(p) => p.theme.home.secondary};
+  }
+`;
+
+const TableContainer = styled.div`
+  max-height: 600px;
+  overflow: auto;
+  padding-right: 0.5rem;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: ${(p) => p.theme.home.primaryTransparent};
+    border-radius: 100px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: ${(p) => p.theme.home.primary};
+    border-radius: 100px;
+  }
+`;
+
+const Table = styled.div`
+  width: 100%;
+  border: 3px solid ${(p) => p.theme.home.primary};
+  border-radius: 0.5rem;
+`;
+
+const Task = styled.div`
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid ${(p) => p.theme.home.primary};
+  overflow-wrap: break-word;
+
+  &:first-child {
+    border-top-left-radius: 0.3rem;
+    border-top-right-radius: 0.3rem;
+  }
+
+  &:last-child {
+    border-bottom-left-radius: 0.3rem;
+    border-bottom-right-radius: 0.3rem;
+    border-bottom: none;
+  }
+`;
+
+const TaskContent = styled.div`
+  display: flex;
+  gap: 0.5rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  padding: 0.5rem 1rem;
+
+  @media (min-width: 992px) {
+    flex-direction: row;
+    justify-content: initial;
+    text-align: initial;
+    gap: 1rem;
+  }
+`;
+
+const TaskButtonsDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0.5rem 1rem 0.5rem 0;
+  gap: 0.5rem;
+  border-left: 2px solid ${(p) => p.theme.home.primary};
+  padding-left: 0.5rem;
+
+  @media (min-width: 992px) {
+    flex-direction: row;
+    margin: 0;
+    margin-right: 1rem;
+    gap: 1rem;
+  }
+`;
+
+const TaskButton = styled.button`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: ${(p) => p.theme.bodyFontColor};
+`;
+
+const TaskDescription = styled.p<{ $complete: string | boolean }>`
+  font-weight: ${(p) => (p.$complete ? "lighter" : "bold")};
+  padding: 0 1rem;
+  font-size: 1.2rem;
+  text-decoration: ${(p) => (p.$complete ? "line-through" : "none")};
+  text-decoration-thickness: 0.15rem;
+
+  @media (min-width: 992px) {
+    padding: 0;
+  }
+`;
+
 export {
   Container,
   Input,
@@ -189,4 +300,12 @@ export {
   TaskRemaining,
   NoData,
   FormHeader,
+  HeadDiv,
+  TableContainer,
+  Table,
+  Task,
+  TaskContent,
+  TaskButtonsDiv,
+  TaskButton,
+  TaskDescription,
 };

@@ -7,9 +7,9 @@ import { useAppContext } from "@/context/AppProvider";
 const Container = styled.div`
   width: 40px;
   height: 40px;
-  border: 2px solid ${(p) => (p.theme.id != Theme.Dark ? "#9ecce5" : "#525252")};
+  border: 2px solid ${(p) => p.theme.toggleButton.primary};
   border-radius: 3rem;
-  background: ${(p) => (p.theme.id != Theme.Dark ? "#e0f2fe" : "#404040")};
+  background: ${(p) => p.theme.toggleButton.background};
   display: flex;
   align-items: center;
 `;

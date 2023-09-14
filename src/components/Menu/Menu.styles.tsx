@@ -1,7 +1,6 @@
 import styled, { keyframes } from "styled-components";
 
 import Link from "next/link";
-import { Theme } from "@/helpers/constants";
 
 const fade = keyframes`
   0%{
@@ -62,14 +61,14 @@ const StyledLink = styled(Link)<{ $isOpen: boolean }>`
   gap: 1rem;
   padding: 0.5rem 2rem;
   border-radius: 0.5rem;
-  transition: 0.3s ease;
+  transition: 0.2s ease;
 
   p {
     animation: ${fade} 0.4s;
   }
 
   &:hover {
-    background: ${(p) => (p.theme.id != Theme.Dark ? "#89bde0" : "#404040")};
+    background: ${(p) => p.theme.menu.backgroundHover};
   }
 `;
 
