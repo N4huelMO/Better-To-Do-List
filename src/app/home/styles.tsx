@@ -47,7 +47,7 @@ const Container = styled.div`
   padding: 1rem;
 
   @media (min-width: 1200px) {
-    padding: 4rem 4rem;
+    padding: 1.5rem 2rem;
   }
 `;
 
