@@ -42,16 +42,22 @@ const ResetPassword = () => {
   const [newPassword, setNewPassword] = useState<string>("");
   const [confirmNewPassword, setConfirmNewPassword] = useState<string>("");
 
-  const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCurrentPassword(e.target.value);
-  };
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target;
 
-  const handleNewPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNewPassword(e.target.value);
-  };
-
-  const handleConfirmNewPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setConfirmNewPassword(e.target.value);
+    switch (id) {
+      case "currentPassword":
+        setCurrentPassword(value);
+        break;
+      case "newPassword":
+        setNewPassword(value);
+        break;
+      case "confirmNewPassword":
+        setConfirmNewPassword(value);
+        break;
+      default:
+        break;
+    }
   };
 
   const handleSubmitChangePassword = async (
@@ -124,7 +130,7 @@ const ResetPassword = () => {
         <FormLabels htmlFor="currentPassword">Current Password</FormLabels>
         <SettingsInput
           value={currentPassword}
-          onChange={handleChangePassword}
+          onChange={handleChange}
           id="currentPassword"
         />
       </SettingsFormFields>
@@ -133,7 +139,7 @@ const ResetPassword = () => {
         <FormLabels htmlFor="newPassword">New Password</FormLabels>
         <SettingsInput
           value={newPassword}
-          onChange={handleNewPassword}
+          onChange={handleChange}
           id="newPassword"
         />
       </SettingsFormFields>
@@ -144,7 +150,7 @@ const ResetPassword = () => {
         </FormLabels>
         <SettingsInput
           value={confirmNewPassword}
-          onChange={handleConfirmNewPassword}
+          onChange={handleChange}
           id="confirmNewPassword"
         />
       </SettingsFormFields>
