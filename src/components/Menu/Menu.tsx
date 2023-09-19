@@ -14,12 +14,20 @@ import {
 } from "./Menu.styles";
 import { useAppContext } from "@/context/AppProvider";
 
+import { signOut } from "firebase/auth";
+
+import { auth } from "@/firebase/config";
+
 const Menu = () => {
   const [userName, setUserName] = useState<string | undefined>("");
 
   const { isOpen, setIsOpen } = useAppContext();
 
   const { currentUser } = userAuth();
+
+  const handleLogout = () => {
+    signOut(auth);
+  };
 
   useEffect(() => {
     const splitName = currentUser?.displayName?.split(" ")[0];
@@ -40,7 +48,7 @@ const Menu = () => {
           $isOpen={isOpen}
           href="/home"
           onClick={() => {
-            setIsOpen(!isOpen);
+            setIsOpen(false);
           }}
         >
           <BsFileEarmarkFont size={30}></BsFileEarmarkFont>
@@ -51,7 +59,7 @@ const Menu = () => {
           $isOpen={isOpen}
           href="/home/lists"
           onClick={() => {
-            setIsOpen(!isOpen);
+            setIsOpen(false);
           }}
         >
           <BsList size={30}></BsList>
@@ -62,7 +70,7 @@ const Menu = () => {
           $isOpen={isOpen}
           href="/home/calendar"
           onClick={() => {
-            setIsOpen(!isOpen);
+            setIsOpen(false);
           }}
         >
           <BsCalendar3 size={30}></BsCalendar3>
@@ -73,14 +81,14 @@ const Menu = () => {
           $isOpen={isOpen}
           href="/home/settings"
           onClick={() => {
-            setIsOpen(!isOpen);
+            setIsOpen(false);
           }}
         >
           <RiSettings4Fill size={30}></RiSettings4Fill>
           <p>Settings</p>
         </StyledLink>
 
-        <StyledLink $isOpen={isOpen} href="#">
+        <StyledLink $isOpen={isOpen} href="/" onClick={handleLogout}>
           <BiLogOut size={30}></BiLogOut>
           <p>Logout</p>
         </StyledLink>

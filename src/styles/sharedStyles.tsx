@@ -284,6 +284,49 @@ const TaskDescription = styled.p<{ $complete: string | boolean }>`
   }
 `;
 
+const H1 = styled.h1`
+  font-size: 3rem;
+  margin-bottom: 1rem;
+
+  &::first-letter {
+    text-transform: capitalize;
+  }
+`;
+
+const ChangeNameForm = styled.form`
+  width: 100%;
+
+  @media (min-width: 992px) {
+    width: 50%;
+  }
+`;
+
+const ResetPasswordForm = styled(ChangeNameForm)`
+  margin-top: 2rem;
+`;
+
+const SettingsFormFields = styled(FormFields)`
+  display: flex;
+  flex-direction: column;
+`;
+
+const SettingsInput = styled(Input)`
+  width: 100%;
+
+  &:read-only {
+    cursor: default;
+  }
+`;
+
+const SettingsStyledButton = styled(ButtonForm)`
+  width: 100%;
+
+  &:disabled {
+    background: gray;
+    cursor: not-allowed;
+  }
+`;
+
 export {
   Container,
   Input,
@@ -308,4 +351,10 @@ export {
   TaskButtonsDiv,
   TaskButton,
   TaskDescription,
+  H1,
+  SettingsFormFields,
+  SettingsInput,
+  SettingsStyledButton,
+  ChangeNameForm,
+  ResetPasswordForm,
 };
