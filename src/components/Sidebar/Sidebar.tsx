@@ -30,7 +30,7 @@ const Sidebar = () => {
         <SidebarContainer>
           <SidebarContent>
             <H1>Better To-Do List</H1>
-            <H2>Keep your mind clear and don't worry about remembering</H2>
+            <H2>Keep your mind clear and don&apos;t worry about remembering</H2>
           </SidebarContent>
 
           <ImageDiv>

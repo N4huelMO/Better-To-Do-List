@@ -4,7 +4,7 @@ import Alert from "./Alert";
 
 import { useState } from "react";
 
-import userAuth from "@/helpers/userAuth";
+import useAuth from "@/helpers/useAuth";
 
 import { useAppContext } from "@/context/AppProvider";
 
@@ -32,7 +32,7 @@ const ResetPasswordForm = styled(ChangeNameForm)`
 `;
 
 const ResetPassword = () => {
-  const { currentUser } = userAuth();
+  const { currentUser } = useAuth();
 
   const { alert, setAlert } = useAppContext();
 

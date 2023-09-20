@@ -1,6 +1,6 @@
 "use client";
 import { auth, db } from "@/firebase/config";
-import userAuth from "@/helpers/userAuth";
+import useAuth from "@/helpers/useAuth";
 
 import {
   addDoc,
@@ -57,7 +57,7 @@ const HomePage = () => {
   const { fetchIsLoading, setFetchIsLoading, task, setTask, tasks, setTasks } =
     useAppContext();
 
-  const { currentUser } = userAuth();
+  const { currentUser } = useAuth();
 
   const defaultDate = new Date();
 
@@ -224,7 +224,7 @@ const HomePage = () => {
           {fetchIsLoading ? (
             <Loading />
           ) : tasks.length === 0 ? (
-            <NoData>You haven't scored any tasks yet!</NoData>
+            <NoData>You haven&apos;t scored any tasks yet!</NoData>
           ) : (
             tasks.map((task: Tasks, i: number) => (
               <Task key={i}>

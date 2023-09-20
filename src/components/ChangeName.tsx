@@ -1,4 +1,4 @@
-import userAuth from "@/helpers/userAuth";
+import useAuth from "@/helpers/useAuth";
 
 import { updateProfile } from "firebase/auth";
 import { useEffect, useState } from "react";
@@ -12,7 +12,7 @@ import {
 } from "@/styles/sharedStyles";
 
 const ChangeName = () => {
-  const { currentUser } = userAuth();
+  const { currentUser } = useAuth();
 
   const [displayName, setDisplayName] = useState<string>("");
   const [email, setEmail] = useState<string>("");

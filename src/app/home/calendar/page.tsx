@@ -9,7 +9,7 @@ import { collection, onSnapshot, query, where } from "firebase/firestore";
 
 import { db } from "@/firebase/config";
 
-import userAuth from "@/helpers/userAuth";
+import useAuth from "@/helpers/useAuth";
 
 import Loading from "@/components/Loading";
 
@@ -26,7 +26,7 @@ const CalendarPage = () => {
 
   const [windowWidth, setWindowWidth] = useState<number>(0);
 
-  const { currentUser } = userAuth();
+  const { currentUser } = useAuth();
 
   useEffect(() => {
     setWindowWidth(window.innerWidth);

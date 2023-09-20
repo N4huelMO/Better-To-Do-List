@@ -4,7 +4,7 @@ import React from "react";
 
 import { useAppContext } from "@/context/AppProvider";
 
-import userAuth from "@/helpers/userAuth";
+import useAuth from "@/helpers/useAuth";
 
 import Menu from "@/components/Menu/Menu";
 
@@ -17,10 +17,10 @@ import {
   StyledSvg,
 } from "./styles";
 
-const layout = ({ children }: { children: React.ReactNode }) => {
+const Layout = ({ children }: { children: React.ReactNode }) => {
   const { isOpen, setIsOpen } = useAppContext();
 
-  const { currentUser } = userAuth();
+  const { currentUser } = useAuth();
 
   const handleClick = () => {
     setIsOpen(!isOpen);
@@ -49,4 +49,4 @@ const layout = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default layout;
+export default Layout;

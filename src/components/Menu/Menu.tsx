@@ -1,10 +1,10 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { BsFileEarmarkFont, BsList, BsCalendar3 } from "react-icons/bs";
 import { RiSettings4Fill } from "react-icons/ri";
 import { BiLogOut } from "react-icons/bi";
 
-import userAuth from "@/helpers/userAuth";
+import useAuth from "@/helpers/useAuth";
 import SocialLink from "../SocialLink";
 import {
   Container,
@@ -23,7 +23,7 @@ const Menu = () => {
 
   const { isOpen, setIsOpen } = useAppContext();
 
-  const { currentUser } = userAuth();
+  const { currentUser } = useAuth();
 
   const handleLogout = () => {
     signOut(auth);

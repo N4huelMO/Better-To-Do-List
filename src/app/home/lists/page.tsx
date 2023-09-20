@@ -8,7 +8,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 
 import { auth, db } from "@/firebase/config";
 
-import userAuth from "@/helpers/userAuth";
+import useAuth from "@/helpers/useAuth";
 
 import Loading from "@/components/Loading";
 
@@ -46,7 +46,7 @@ const ListsPage = () => {
   const [list, setList] = useState<string>("");
   const [lists, setLists] = useState<Array<Lists>>([]);
 
-  const { currentUser } = userAuth();
+  const { currentUser } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

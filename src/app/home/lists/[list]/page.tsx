@@ -5,7 +5,7 @@ import { useParams } from "next/navigation";
 
 import { db } from "@/firebase/config";
 
-import userAuth from "@/helpers/userAuth";
+import userAuth from "@/helpers/useAuth";
 
 import Loading from "@/components/Loading";
 
@@ -203,7 +203,7 @@ const ListPage = () => {
           <TableContainer>
             <Table>
               {data?.tasks.length === 0 ? (
-                <NoData>You haven't scored any tasks yet!</NoData>
+                <NoData>You haven&apos;t scored any tasks yet!</NoData>
               ) : (
                 data?.tasks.map((task) => (
                   <Task key={task.id}>

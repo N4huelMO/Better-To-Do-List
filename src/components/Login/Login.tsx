@@ -133,7 +133,8 @@ const Login = () => {
                 Sign In
               </ButtonForm>
               <SignUpSignIn>
-                Don't have an account? <Link href={"/register"}>Sign Up</Link>
+                Don&apos;t have an account?{" "}
+                <Link href={"/register"}>Sign Up</Link>
               </SignUpSignIn>
             </>
           )}

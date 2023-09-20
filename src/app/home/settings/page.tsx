@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import styled from "styled-components";
 
-import userAuth from "@/helpers/userAuth";
+import useAuth from "@/helpers/useAuth";
 
 import { HeadDiv } from "@/styles/sharedStyles";
 
@@ -19,7 +19,7 @@ const Container = styled.div`
 `;
 
 const SettingsPage = () => {
-  const { currentUser } = userAuth();
+  const { currentUser } = useAuth();
 
   const [provider, setProvider] = useState<string>("");
 
