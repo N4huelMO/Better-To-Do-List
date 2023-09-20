@@ -20,7 +20,7 @@ import { AccInterface, Tasks } from "@/interfaces/interfaces";
 import { FullCalendarWrapper } from "./styles";
 import { HeadDiv } from "@/styles/sharedStyles";
 
-const page = () => {
+const CalendarPage = () => {
   const { fetchIsLoading, setFetchIsLoading, tasks, setTasks } =
     useAppContext();
 
@@ -122,4 +122,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default CalendarPage;

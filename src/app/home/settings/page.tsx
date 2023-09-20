@@ -18,7 +18,7 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const page = () => {
+const SettingsPage = () => {
   const { currentUser } = userAuth();
 
   const [provider, setProvider] = useState<string>("");
@@ -49,4 +49,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default SettingsPage;

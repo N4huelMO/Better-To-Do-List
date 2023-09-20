@@ -1,8 +1,8 @@
 "use client";
 import Login from "@/components/Login/Login";
 
-const page = () => {
+const LoginPage = () => {
   return <Login />;
 };
 
-export default page;
+export default LoginPage;

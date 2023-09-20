@@ -46,7 +46,7 @@ import {
   TaskRemaining,
 } from "@/styles/sharedStyles";
 
-const page = () => {
+const ListPage = () => {
   const { fetchIsLoading, setFetchIsLoading, task, setTask } = useAppContext();
 
   const [data, setData] = useState<List>();
@@ -243,4 +243,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default ListPage;

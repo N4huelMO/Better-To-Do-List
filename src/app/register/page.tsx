@@ -1,7 +1,7 @@
 "use client";
 import Register from "@/components/Register/Register";
 
-const page = () => {
+const RegisterPage = () => {
   return <Register />;
 };
-export default page;
+export default RegisterPage;

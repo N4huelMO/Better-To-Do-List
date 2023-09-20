@@ -53,7 +53,7 @@ import { useAppContext } from "@/context/AppProvider";
 
 import { Tasks } from "@/interfaces/interfaces";
 
-const page = () => {
+const HomePage = () => {
   const { fetchIsLoading, setFetchIsLoading, task, setTask, tasks, setTasks } =
     useAppContext();
 
@@ -261,4 +261,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default HomePage;

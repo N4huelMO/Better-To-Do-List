@@ -1,7 +1,7 @@
 "use client";
 import ForgotPassword from "@/components/ForgotPassword/ForgotPassword";
 
-const page = () => {
+const ForgotPasswordPage = () => {
   return <ForgotPassword />;
 };
-export default page;
+export default ForgotPasswordPage;

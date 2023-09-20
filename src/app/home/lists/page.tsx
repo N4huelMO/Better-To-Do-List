@@ -38,7 +38,7 @@ import {
   ListsContainer,
 } from "./styles";
 
-const page = () => {
+const ListsPage = () => {
   const { fetchIsLoading, setFetchIsLoading } = useAppContext();
 
   const hasEnoughElements = 21;
@@ -162,4 +162,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default ListsPage;
