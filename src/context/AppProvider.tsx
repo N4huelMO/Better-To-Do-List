@@ -65,7 +65,7 @@ const AppProvider = ({ children }: AppProviderProps) => {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      setThemeContext(localStorage.getItem("theme"));
+      setThemeContext(localStorage.getItem("theme") || "light");
     }
   }, []);
 
