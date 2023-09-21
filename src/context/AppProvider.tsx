@@ -1,6 +1,7 @@
 "use client";
 
 import { Tasks } from "@/interfaces/interfaces";
+
 import {
   createContext,
   useState,
@@ -8,10 +9,11 @@ import {
   useContext,
   Dispatch,
   SetStateAction,
+  useEffect,
 } from "react";
 
 type ContextProps = {
-  themeContext: string;
+  themeContext: string | null;
   toggleTheme: (e?: string) => void | (() => {});
   email: string;
   setEmail: Dispatch<SetStateAction<string>>;
@@ -38,7 +40,7 @@ type AppProviderProps = {
 };
 
 const AppProvider = ({ children }: AppProviderProps) => {
-  const [themeContext, setThemeContext] = useState<string>("light");
+  const [themeContext, setThemeContext] = useState<string | null>(null);
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [alert, setAlert] = useState<{ msg: string; error: boolean }>({
@@ -54,9 +56,18 @@ const AppProvider = ({ children }: AppProviderProps) => {
   const toggleTheme = (e?: string) => {
     if (e) {
       setThemeContext(e);
+
+      localStorage.setItem("theme", e);
+
       return;
     }
   };
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setThemeContext(localStorage.getItem("theme"));
+    }
+  }, []);
 
   return (
     <AppContext.Provider

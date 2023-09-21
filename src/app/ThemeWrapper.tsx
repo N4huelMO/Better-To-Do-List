@@ -15,7 +15,7 @@ html,body {
   height: 100%;
   background: ${(p) => p.theme.bodyBackgroundColor};
   color: ${(p) => p.theme.bodyFontColor};
-  transition: background 0.2s ease, color 0.2s ease;
+  transition: background 0.2s, color 0.2s;
   }
 `;
 
@@ -25,6 +25,8 @@ const Container = styled.div`
 
 const ThemeWrapper = ({ children }: { children: React.ReactNode }) => {
   const { themeContext } = useAppContext();
+
+  if (!themeContext) return null;
 
   return (
     <StyledComponentsRegistry>
