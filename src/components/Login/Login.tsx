@@ -58,6 +58,8 @@ const Login = () => {
       .then((userCredential) => {
         const user = userCredential.user;
 
+        setIsLoading(false);
+
         router.push("/home");
       })
       .catch((error) => {
