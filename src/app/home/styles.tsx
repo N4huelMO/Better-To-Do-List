@@ -68,10 +68,20 @@ const AddTaskDateInput = styled(Input)`
   width: 10rem;
   font-weight: bold;
   font-size: 0.9rem;
+  position: relative;
 
   &::-webkit-calendar-picker-indicator {
     transition: 0.2s;
     filter: ${(p) => p.theme.home.filter};
+    background-position: right;
+    background-size: auto;
+    cursor: pointer;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 15px;
+    top: 17px;
+    width: auto;
   }
 `;
 
