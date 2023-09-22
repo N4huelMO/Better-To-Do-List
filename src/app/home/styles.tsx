@@ -106,7 +106,29 @@ const TaskDate = styled.p`
     text-align: left;
     font-size: 1rem;
     border-right: 2px solid ${(p) => p.theme.home.primary};
-    padding-right: 0.5rem;
+    padding-right: 0.75rem;
+  }
+`;
+
+const DeleteCompletedTasksDiv = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 0.5rem;
+`;
+
+const DeleteCompletedTasks = styled(ButtonForm)`
+  width: auto;
+  padding: 1rem;
+  margin-top: 0.5rem;
+  background: #e47676;
+
+  &:hover {
+    background: #c44c4c;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    background: #808080;
   }
 `;
 
@@ -120,4 +142,6 @@ export {
   AddTaskDateInput,
   AddTaskButton,
   TaskDate,
+  DeleteCompletedTasks,
+  DeleteCompletedTasksDiv,
 };

@@ -30,6 +30,8 @@ import {
   AddTaskButton,
   AddTaskDateInput,
   AddTaskInput,
+  DeleteCompletedTasks,
+  DeleteCompletedTasksDiv,
   InputButtonContainer,
   TaskDate,
 } from "./styles";
@@ -70,7 +72,9 @@ const HomePage = () => {
   const [date, setDate] = useState<string | number>(defaultValue);
   const [idTask, setIdTask] = useState<string>("");
 
-  const taskCompleted = tasks.filter((task) => !task.complete);
+  const taskUncompleted = tasks.filter((task) => !task.complete);
+
+  const taskCompleted = tasks.filter((task) => task.complete);
 
   const minDate = new Date().toISOString().split("T")[0];
 
@@ -108,6 +112,14 @@ const HomePage = () => {
     await updateDoc(updatedTask, {
       complete: !complete,
     });
+  };
+
+  const handleDeleteCompleted = async (e: Array<Tasks>) => {
+    e.map((task) => handleDelete(task.id));
+
+    setIdTask("");
+    setTask("");
+    setDate(defaultValue);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -215,7 +227,9 @@ const HomePage = () => {
         {idTask ? (
           <CancelButton onClick={handleCancel}>Cancel</CancelButton>
         ) : (
-          <TaskRemaining>Tasks remaining: {taskCompleted.length}</TaskRemaining>
+          <TaskRemaining>
+            Tasks remaining: {taskUncompleted.length}
+          </TaskRemaining>
         )}
       </HomeForm>
 
@@ -257,6 +271,17 @@ const HomePage = () => {
           )}
         </Table>
       </TableContainer>
+
+      <DeleteCompletedTasksDiv>
+        <DeleteCompletedTasks
+          disabled={taskCompleted.length == 0}
+          onClick={() => {
+            handleDeleteCompleted(taskCompleted);
+          }}
+        >
+          Delete completed tasks
+        </DeleteCompletedTasks>
+      </DeleteCompletedTasksDiv>
     </>
   );
 };

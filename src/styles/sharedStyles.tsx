@@ -123,18 +123,13 @@ const HomeForm = styled.form`
   }
 `;
 
-const CancelButton = styled.button`
-  padding: 0.5rem;
-  border: none;
-  border-radius: 0.5rem;
+const CancelButton = styled(ButtonForm)`
+  padding: 1rem;
   background: #e47676;
-  color: #fff;
-  cursor: pointer;
-  font-weight: bold;
-  transition: 0.2s;
+  width: auto;
 
   &:hover {
-    background: #dd5c5c;
+    background: #c44c4c;
   }
 `;
 
