@@ -1,22 +1,29 @@
 import { useEffect, useState } from "react";
 
+import { useRouter } from "next/navigation";
+
 import { BsFileEarmarkFont, BsList, BsCalendar3 } from "react-icons/bs";
+
 import { RiSettings4Fill } from "react-icons/ri";
+
 import { BiLogOut } from "react-icons/bi";
 
 import useAuth from "@/helpers/useAuth";
+
 import SocialLink from "../SocialLink";
-import {
-  Container,
-  LinksContainer,
-  StyledLink,
-  WelcomeDiv,
-} from "./Menu.styles";
+
 import { useAppContext } from "@/context/AppProvider";
 
 import { signOut } from "firebase/auth";
-
 import { auth } from "@/firebase/config";
+
+import {
+  Container,
+  LinksContainer,
+  Logout,
+  StyledLink,
+  WelcomeDiv,
+} from "./Menu.styles";
 
 const Menu = () => {
   const [userName, setUserName] = useState<string | undefined>("");
@@ -25,8 +32,13 @@ const Menu = () => {
 
   const { currentUser } = useAuth();
 
+  const router = useRouter();
+
   const handleLogout = () => {
-    signOut(auth);
+    if (confirm("Do you want leave?") == true) {
+      router.push("/");
+      signOut(auth);
+    }
   };
 
   useEffect(() => {
@@ -45,7 +57,6 @@ const Menu = () => {
 
       <LinksContainer>
         <StyledLink
-          $isOpen={isOpen}
           href="/home"
           onClick={() => {
             setIsOpen(false);
@@ -56,7 +67,6 @@ const Menu = () => {
         </StyledLink>
 
         <StyledLink
-          $isOpen={isOpen}
           href="/home/lists"
           onClick={() => {
             setIsOpen(false);
@@ -67,7 +77,6 @@ const Menu = () => {
         </StyledLink>
 
         <StyledLink
-          $isOpen={isOpen}
           href="/home/calendar"
           onClick={() => {
             setIsOpen(false);
@@ -78,7 +87,6 @@ const Menu = () => {
         </StyledLink>
 
         <StyledLink
-          $isOpen={isOpen}
           href="/home/settings"
           onClick={() => {
             setIsOpen(false);
@@ -88,10 +96,10 @@ const Menu = () => {
           <p>Settings</p>
         </StyledLink>
 
-        <StyledLink $isOpen={isOpen} href="/" onClick={handleLogout}>
+        <Logout onClick={handleLogout}>
           <BiLogOut size={30}></BiLogOut>
           <p>Logout</p>
-        </StyledLink>
+        </Logout>
       </LinksContainer>
 
       <SocialLink />

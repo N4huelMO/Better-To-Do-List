@@ -23,7 +23,7 @@ const Container = styled.div<{ $isOpen: boolean }>`
   align-items: center;
   flex-direction: column;
   font-size: 1.3rem;
-  font-weight: 700;
+  font-weight: bold;
   gap: 1.5rem;
   color: ${(p) => p.theme.bodyFontColor};
 
@@ -55,7 +55,7 @@ const LinksContainer = styled.div`
   margin: 0 0 2rem 0;
 `;
 
-const StyledLink = styled(Link)<{ $isOpen: boolean }>`
+const StyledLink = styled(Link)`
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -72,4 +72,26 @@ const StyledLink = styled(Link)<{ $isOpen: boolean }>`
   }
 `;
 
-export { Container, WelcomeDiv, LinksContainer, StyledLink };
+const Logout = styled.button`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 2rem;
+  border-radius: 0.5rem;
+  transition: 0.2s ease;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: ${(p) => p.theme.bodyFontColor};
+
+  p {
+    animation: ${fade} 0.4s;
+    font-size: 1.3rem;
+    font-weight: bold;
+  }
+
+  &:hover {
+    background: ${(p) => p.theme.menu.backgroundHover};
+  }
+`;
+export { Container, WelcomeDiv, LinksContainer, StyledLink, Logout };
