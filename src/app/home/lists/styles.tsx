@@ -4,8 +4,6 @@ import styled from "styled-components";
 
 import Link from "next/link";
 
-import { Theme } from "@/helpers/constants";
-
 import { ButtonForm, Input } from "@/styles/sharedStyles";
 
 import ScrollContainer from "react-indiana-drag-scroll";
@@ -35,13 +33,13 @@ const Container = styled(ScrollContainer)<{
   justify-content: ${(p) => (p.$noLists ? "center" : "initial")};
   align-items: ${(p) => (p.$noLists ? "center" : "initial")};
   max-height: 560px;
-  height: 560px;
   overflow-y: auto;
   overflow-x: hidden;
   width: 100%;
 
   @media (min-width: 992px) {
     overflow-x: auto;
+    height: 560px;
   }
 
   &:active {

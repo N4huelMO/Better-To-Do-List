@@ -146,9 +146,14 @@ const NoData = styled.p`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 3rem 0;
+  margin: 1rem;
   font-size: 1.5rem;
   font-weight: bold;
+  text-align: center;
+
+  @media (min-width: 992px) {
+    margin: 3rem 0;
+  }
 `;
 
 const FormHeader = styled.header`
