@@ -115,11 +115,13 @@ const HomePage = () => {
   };
 
   const handleDeleteCompleted = async (e: Array<Tasks>) => {
-    e.map((task) => handleDelete(task.id));
+    if (confirm("Do you want to delete completed tasks?")) {
+      e.map((task) => handleDelete(task.id));
 
-    setIdTask("");
-    setTask("");
-    setDate(defaultValue);
+      setIdTask("");
+      setTask("");
+      setDate(defaultValue);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
