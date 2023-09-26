@@ -106,7 +106,6 @@ const TaskDate = styled.p`
     text-align: left;
     font-size: 1rem;
     border-right: 2px solid ${(p) => p.theme.home.primary};
-    padding-right: 0.75rem;
   }
 `;
 
