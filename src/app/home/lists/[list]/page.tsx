@@ -33,6 +33,8 @@ import { AddTaskButton, AddTaskInput } from "./styles";
 
 import {
   CancelButton,
+  DeleteCompletedTasks,
+  DeleteCompletedTasksDiv,
   H1,
   HomeForm,
   NoData,
@@ -62,7 +64,9 @@ const ListPage = () => {
 
   const listTasksRef = data?.tasks;
 
-  const taskCompleted = data?.tasks.filter((task) => !task.complete);
+  const taskUncompleted = data?.tasks.filter((task) => !task.complete);
+
+  const taskCompleted = data?.tasks.filter((task) => task.complete) ?? [];
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTask(e.target.value.trimStart());
@@ -103,6 +107,15 @@ const ListPage = () => {
     await updateDoc(listRef, {
       tasks: updatedTaskStatus,
     });
+  };
+
+  const handleDeleteCompleted = async (e: Array<ListTask>) => {
+    if (confirm("Do you want to delete completed tasks?")) {
+      e.map((task) => handleDelete(task.id));
+
+      setIdTask("");
+      setTask("");
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -195,7 +208,7 @@ const ListPage = () => {
               <CancelButton onClick={handleCancel}>Cancel</CancelButton>
             ) : (
               <TaskRemaining>
-                Tasks remaining: {taskCompleted?.length}
+                Tasks remaining: {taskUncompleted?.length}
               </TaskRemaining>
             )}
           </HomeForm>
@@ -237,6 +250,17 @@ const ListPage = () => {
               )}
             </Table>
           </TableContainer>
+
+          <DeleteCompletedTasksDiv>
+            <DeleteCompletedTasks
+              disabled={taskCompleted.length == 0}
+              onClick={() => {
+                handleDeleteCompleted(taskCompleted);
+              }}
+            >
+              Delete completed tasks
+            </DeleteCompletedTasks>
+          </DeleteCompletedTasksDiv>
         </>
       )}
     </>

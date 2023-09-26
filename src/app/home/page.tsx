@@ -30,14 +30,14 @@ import {
   AddTaskButton,
   AddTaskDateInput,
   AddTaskInput,
-  DeleteCompletedTasks,
-  DeleteCompletedTasksDiv,
   InputButtonContainer,
   TaskDate,
 } from "./styles";
 
 import {
   CancelButton,
+  DeleteCompletedTasks,
+  DeleteCompletedTasksDiv,
   HeadDiv,
   HomeForm,
   NoData,

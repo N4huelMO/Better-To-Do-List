@@ -110,28 +110,6 @@ const TaskDate = styled.p`
   }
 `;
 
-const DeleteCompletedTasksDiv = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  padding-right: 0.5rem;
-`;
-
-const DeleteCompletedTasks = styled(ButtonForm)`
-  width: auto;
-  padding: 1rem;
-  margin-top: 0.5rem;
-  background: #e47676;
-
-  &:hover {
-    background: #c44c4c;
-  }
-
-  &:disabled {
-    cursor: not-allowed;
-    background: #808080;
-  }
-`;
-
 export {
   SidebarContainerHome,
   HeaderSidebar,
@@ -142,6 +120,4 @@ export {
   AddTaskDateInput,
   AddTaskButton,
   TaskDate,
-  DeleteCompletedTasks,
-  DeleteCompletedTasksDiv,
 };

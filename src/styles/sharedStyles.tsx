@@ -84,6 +84,7 @@ const ButtonForm = styled.button`
     background: ${(p) => p.theme.button.backgroundHover};
   }
 `;
+
 const GoogleSignInButton = styled(ButtonForm)`
   margin-top: 0.5rem;
   padding: 0.55rem 0;
@@ -327,6 +328,21 @@ const SettingsStyledButton = styled(ButtonForm)`
   }
 `;
 
+const DeleteCompletedTasksDiv = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 0.5rem;
+`;
+
+const DeleteCompletedTasks = styled(CancelButton)`
+  margin-top: 0.5rem;
+
+  &:disabled {
+    cursor: not-allowed;
+    background: #808080;
+  }
+`;
+
 export {
   Container,
   Input,
@@ -357,4 +373,6 @@ export {
   SettingsStyledButton,
   ChangeNameForm,
   ResetPasswordForm,
+  DeleteCompletedTasksDiv,
+  DeleteCompletedTasks,
 };
