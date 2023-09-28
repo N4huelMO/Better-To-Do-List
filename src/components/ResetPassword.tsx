@@ -74,13 +74,26 @@ const ResetPassword = () => {
       );
     }
 
+    if (newPassword !== confirmNewPassword) {
+      setAlert({
+        msg: "The new passwords doesn't match",
+        error: true,
+      });
+
+      setTimeout(() => {
+        setAlert({ msg: "", error: false });
+      }, 3000);
+
+      return;
+    }
+
     try {
       if (currentUser && credentials) {
         await reauthenticateWithCredential(currentUser, credentials);
       }
     } catch (error) {
       setAlert({
-        msg: "The password is incorrect",
+        msg: "The current password isn't correct",
         error: true,
       });
 
