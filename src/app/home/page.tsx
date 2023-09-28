@@ -56,8 +56,15 @@ import { useAppContext } from "@/context/AppProvider";
 import { Tasks } from "@/interfaces/interfaces";
 
 const HomePage = () => {
-  const { fetchIsLoading, setFetchIsLoading, task, setTask, tasks, setTasks } =
-    useAppContext();
+  const {
+    fetchIsLoading,
+    setFetchIsLoading,
+    task,
+    setTask,
+    tasks,
+    setTasks,
+    setIsLoading,
+  } = useAppContext();
 
   const { currentUser } = useAuth();
 
@@ -162,6 +169,7 @@ const HomePage = () => {
   };
 
   useEffect(() => {
+    setIsLoading(false);
     setFetchIsLoading(true);
 
     if (currentUser && currentUser.uid) {
