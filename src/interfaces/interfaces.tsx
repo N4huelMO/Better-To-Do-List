@@ -43,7 +43,7 @@ export interface AccInterface {
 
 export interface PasswordInputProps {
   setPassword: Dispatch<SetStateAction<string>>;
-  $confirmPassword?: boolean;
+  id: string;
 }
 
 export interface ValidPaths {

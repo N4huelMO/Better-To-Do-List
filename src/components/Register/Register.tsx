@@ -156,11 +156,14 @@ const Login = () => {
 
           <FormFields>
             <FormLabels htmlFor="password">Password</FormLabels>
-            <PasswordInput setPassword={setPassword} />
+            <PasswordInput setPassword={setPassword} id="password" />
           </FormFields>
           <FormFields>
             <FormLabels htmlFor="confirmPassword">Confirm Password</FormLabels>
-            <PasswordInput setPassword={setConfirmPassword} $confirmPassword />
+            <PasswordInput
+              setPassword={setConfirmPassword}
+              id="confirmPassword"
+            />
           </FormFields>
 
           {alert.msg && <Alert message={alert} />}

@@ -26,6 +26,7 @@ import {
   SettingsInput,
   SettingsStyledButton,
 } from "@/styles/sharedStyles";
+import PasswordInput from "./PasswordInput/PasswordInput";
 
 const ResetPasswordForm = styled(ChangeNameForm)`
   margin-top: 2rem;
@@ -41,24 +42,6 @@ const ResetPassword = () => {
   const [currentPassword, setCurrentPassword] = useState<string>("");
   const [newPassword, setNewPassword] = useState<string>("");
   const [confirmNewPassword, setConfirmNewPassword] = useState<string>("");
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = e.target;
-
-    switch (id) {
-      case "currentPassword":
-        setCurrentPassword(value);
-        break;
-      case "newPassword":
-        setNewPassword(value);
-        break;
-      case "confirmNewPassword":
-        setConfirmNewPassword(value);
-        break;
-      default:
-        break;
-    }
-  };
 
   const handleSubmitChangePassword = async (
     e: React.FormEvent<HTMLFormElement>
@@ -141,29 +124,20 @@ const ResetPassword = () => {
 
       <SettingsFormFields>
         <FormLabels htmlFor="currentPassword">Current Password</FormLabels>
-        <SettingsInput
-          value={currentPassword}
-          onChange={handleChange}
-          id="currentPassword"
-        />
+        <PasswordInput setPassword={setCurrentPassword} id="currentPassword" />
       </SettingsFormFields>
 
       <SettingsFormFields>
         <FormLabels htmlFor="newPassword">New Password</FormLabels>
-        <SettingsInput
-          value={newPassword}
-          onChange={handleChange}
-          id="newPassword"
-        />
+        <PasswordInput setPassword={setNewPassword} id="newPassword" />
       </SettingsFormFields>
 
       <SettingsFormFields>
         <FormLabels htmlFor="confirmNewPassword">
           Confirm New Password
         </FormLabels>
-        <SettingsInput
-          value={confirmNewPassword}
-          onChange={handleChange}
+        <PasswordInput
+          setPassword={setConfirmNewPassword}
           id="confirmNewPassword"
         />
       </SettingsFormFields>

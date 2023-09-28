@@ -14,10 +14,7 @@ import {
 import { Input } from "@/styles/sharedStyles";
 import { PasswordInputProps } from "@/interfaces/interfaces";
 
-const PasswordInput = ({
-  setPassword,
-  $confirmPassword,
-}: PasswordInputProps) => {
+const PasswordInput = ({ setPassword, id }: PasswordInputProps) => {
   const [showPassword, setShowPassword] = useState(false);
   const [clickShowPassword, setClickShowPassword] = useState(false);
 
@@ -30,7 +27,7 @@ const PasswordInput = ({
       <PasswordInputWrapper>
         <Input
           {...{ type: showPassword ? "text" : "password" }}
-          id={$confirmPassword ? "confirmPassword" : "password"}
+          id={id}
           required
           onChange={handlePasswordChange}
         />
