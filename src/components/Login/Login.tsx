@@ -58,8 +58,6 @@ const Login = () => {
       .then((userCredential) => {
         const user = userCredential.user;
 
-        setIsLoading(false);
-
         router.push("/home");
       })
       .catch((error) => {
@@ -118,7 +116,7 @@ const Login = () => {
 
           <FormFields>
             <FormLabels htmlFor="password">Password</FormLabels>
-            <PasswordInput setPassword={setPassword} />
+            <PasswordInput setPassword={setPassword} id="password" />
 
             <ForgotPasswordDiv>
               <Link href={"/forgot-password"}>Forgot Password?</Link>
