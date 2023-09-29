@@ -335,7 +335,12 @@ const DeleteCompletedTasksDiv = styled.div`
 `;
 
 const DeleteCompletedTasks = styled(CancelButton)`
+  width: 100%;
   margin-top: 0.5rem;
+
+  @media (min-width: 992px) {
+    width: auto;
+  }
 
   &:disabled {
     cursor: not-allowed;
