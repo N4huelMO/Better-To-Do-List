@@ -82,6 +82,8 @@ const Login = () => {
   const signInWithGoogle = async () => {
     await signInWithPopup(auth, provider)
       .then((result) => {
+        setIsLoading(true);
+
         const user = result.user;
 
         router.push("/home");
